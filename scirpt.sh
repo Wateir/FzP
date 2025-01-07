@@ -15,7 +15,7 @@ commands=(
 selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
   --with-nth 1..2 \
   --preview 'echo {4..}; echo; printf "Number of packages: "; pkgs="$(eval {1..2})";\
-   printf "$pkgs" | wc -l; echo; printf "$pkgs" | bat -fl yml --terminal-width "$FZF_PREVIEW_COLUMNS"' \
+   printf "$pkgs\n" | wc -l; echo; printf "$pkgs" | bat -fl yml --terminal-width "$FZF_PREVIEW_COLUMNS"' \
   --preview-window 'right:70%:wrap' \
   --reverse \
   --info=right \
