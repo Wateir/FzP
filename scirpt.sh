@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export SHELL='sh'
 commands=(
 	"pacman -Qq Shows all package install"
     "pacman -Qqe Shows explicitly installed packages"
@@ -13,18 +13,21 @@ commands=(
 )
 
 selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
-  --with-nth 1..2 \
-  --preview 'echo {4..}; echo; printf "Number of packages: "; pkgs="$(eval {1..2})";\
-   printf "$pkgs\n" | wc -l; echo; printf "$pkgs"\
-   | bat -fl yml --terminal-width "$FZF_PREVIEW_COLUMNS" --style=grid,numbers' \
-  --preview-window 'right:70%:wrap' \
+  --nth .. \
+  --with-nth ..2 \
+  --preview 'printf "%s\n" {3..} | fold -w "$FZF_PREVIEW_COLUMNS" -s -; eval {..2} | \
+	bat -fl yml --style grid,numbers --terminal-width "$FZF_PREVIEW_COLUMNS"' \
+  --preview-window 'right:60%:wrap:noinfo' \
   --reverse \
+  --info-command='printf "Packages: %d" $(eval {..2} | wc -l)' \
   --info=right \
   --min-height=5 | cut -d' ' -f-2)
 
 if [ -n "$selected_command" ]; then
-    eval $selected_command | fzf --preview 'pacman -Qil {} | bat -fpl yml' \
+    command=$($selected_command | fzf --preview 'pacman -Qil {} | bat -fpl yml' \
     --preview-window 'right:70%:wrap' \
     --layout=reverse \
-    --bind 'enter:execute(pacman -Qil {} | more)'
+    --bind 'enter:execute(pacman -Qil {} >> /dev/null)')
 fi
+
+echo $command
