@@ -30,4 +30,6 @@ if [ -n "$selected_command" ]; then
     --bind 'enter:execute(pacman -Qil {} >> /dev/null)')
 fi
 
-echo $command
+if [ -n "$command" ]; then
+	eval $command
+fi
