@@ -6,7 +6,7 @@ commands=(
     "pacman -Qqet Shows explicitly installed packages that are not currently required by any other package"
     "pacman -Qqen Shows explicitly installed packages from official Arch repos only"
     "pacman -Qqem Shows explicitly installed packages from foreign repos only (AUR, Chaotic AUR, etc)"
-    "pacman -Qqd Show implicite installed packages"
+    "pacman -Qqd Shows implicite installed packages"
     "pacman -Qqdt Shows implicite installed packages that are not currently required by any other package"
     "pacman -Qqdn Shows implicite installed packages from official Arch repos only"
     "pacman -Qqdm Shows implicite installed packages from foreign repos only (AUR, Chaotic AUR, etc)"
@@ -24,7 +24,7 @@ selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
   --min-height=5 | cut -d' ' -f-2)
 
 if [ -n "$selected_command" ]; then
-    command=$($selected_command | fzf --preview 'pacman -Qil {} | bat -fpl yml' \
+    command=$($selected_command | fzf --preview 'pacman -Qi {} | bat -fpl yml' \
     --preview-window 'right:70%:wrap' \
     --layout=reverse \
     --bind 'enter:execute(pacman -Qil {} >> /dev/null)')
