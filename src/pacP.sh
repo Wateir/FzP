@@ -8,29 +8,21 @@ fi
 
 package="$1"
 
-echo $package
-
 commands=(
-    "pacman -Qi $package General Package info "
-    "pacman -R $package Remove package"
-    "pacman -Rnsu $package Remove package and dependency not longer need"
+	"echo hellow it work $package  # test # echo some other test"
+    "echo some text # Show binary of this package # Some random text"
+    "pacman -Qqet # Shows explicitly installed packages that are not currently required by any other package"
+    "pacman -Qqen # Shows explicitly installed packages from official Arch repos only"
+    "pacman -Qqem # Shows explicitly installed packages from foreign repos only (AUR, Chaotic AUR, etc) "
 )
 
 selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
-  --nth .. \
-  --with-nth ..2 \
-  --preview 'printf "%s\n" {4..} | fold -w "$FZF_PREVIEW_COLUMNS" -s -; eval {..2} | \
-	bat -fl yml --style grid,numbers --terminal-width "$FZF_PREVIEW_COLUMNS"' \
-  --preview-window 'right:60%:wrap:noinfo' \
+  --preview 'echo {} | cut -d# -f2 | xargs ' \
+  --preview-window 'right:50%:wrap' \
   --reverse \
-  --info-command='?' \
   --info=right \
-  --min-height=5 | cut -d' ' -f-2)
+  --min-height=5 | cut -d# -f1)
 
-# Vérification si une commande a été sélectionnée
 if [ -n "$selected_command" ]; then
-  
-    command=$(echo "$selected_command" | cut -d ':' -f2)
-    # Exécuter la commande sélectionnée
-    eval $command
+    eval $selected_command
 fi
