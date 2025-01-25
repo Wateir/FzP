@@ -6,6 +6,7 @@ Todo
 - [ ] `fzp -r`
 - [ ] `fzp -S`
 - [ ] `fzp`
+- [ ] `Make fzp one file`
 - [ ] pkgbuild
 ## Features
 
