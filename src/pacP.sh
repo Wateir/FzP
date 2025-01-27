@@ -1,24 +1,44 @@
 #!/bin/bash
 
+#
+
 if [ -z "$1" ]; then
   echo "Missing ARG"
   echo "fzp -p [package name]"
   exit 123
 fi
 
-package="$1"
+# 1  package information
+# 2	 remove package and depency
+# 3  remove only the package
+# 4  reinstall the package
+# 5  Show binary
+# 6  Show all file
 
+package="$1"
+#
 commands=(
 	"echo hellow it work $package  # test # echo some other test"
-    "echo some text # Show binary of this package # Some random text"
-    "pacman -Qqet # Shows explicitly installed packages that are not currently required by any other package"
-    "pacman -Qqen # Shows explicitly installed packages from official Arch repos only"
-    "pacman -Qqem # Shows explicitly installed packages from foreign repos only (AUR, Chaotic AUR, etc) "
+    "echo hellow2 it work $package  # test2 # echo some other test"
+    "echo hellow3 it work $package  # test3 # echo some other test"
+    "echo hellow4 it work $package  # test4 # echo some other test"
+    "echo hellow5 it work $package  # pacman -Ql $package  # echo some other test"
 )
 
+description=(
+	""
+	""
+	""
+)
+
+action=(
+	
+)
+
+
 selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
-  --preview 'echo {} | cut -d# -f2 | xargs ' \
-  --preview-window 'right:50%:wrap' \
+  --preview 'cut -d# -f2 | xargs ' \
+  --preview-window 'right:60%:wrap:noinfo' \
   --reverse \
   --info=right \
   --min-height=5 | cut -d# -f1)
