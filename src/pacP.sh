@@ -13,7 +13,9 @@ fi
 # 3  remove only the package
 # 4  reinstall the package
 # 5  Show binary
-# 6  Show all file
+# 6  Downgrade
+# 7  Show all file
+# 8  Remove just the package and reinstall it from repo ( Show option only if package are on official repo)
 
 package="$1"
 #
