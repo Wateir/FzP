@@ -4,7 +4,7 @@ Todo
 - [x] `fzp -q`
 - [ ] `fzp -p`
 - [ ] `fzp -r`
-- [ ] `fzp -S`
+- [X] `fzp -S`
 - [ ] `fzp`
 - [ ] `Make fzp one file`
 - [ ] pkgbuild
