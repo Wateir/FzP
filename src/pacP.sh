@@ -21,7 +21,7 @@ fi
 
 
 ls ./pacP.d | cut -d'.' -f 1 | fzf \
-  --preview="grep -n preview pacP.d/exemple.conf | cut -d':' -f 1 | awk '{print $1 + 1}' | xargs -I {} sed -n '{}p' pacP.d/exemple.conf | sh"\
+  --preview="grep -n preview pacP.d/exemple.conf | cut -d':' -f 1 | {read n; echo $((n+1));} | xargs -I {} sed -n '{}p' pacP.d/exemple.conf | sh"\
   --preview-window 'right:60%:wrap:noinfo'\
   --reverse \
   --info=right \
@@ -30,3 +30,5 @@ ls ./pacP.d | cut -d'.' -f 1 | fzf \
 if [ -n "$selected_command" ]; then
     eval $selected_command
 fi
+
+
