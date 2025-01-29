@@ -17,33 +17,15 @@ fi
 # 7  Show all file
 # 8  Remove just the package and reinstall it from repo ( Show option only if package are on official repo)
 
-package="$1"
-#
-commands=(
-	"echo hellow it work $package  # test # echo some other test"
-    "echo hellow2 it work $package  # test2 # echo some other test"
-    "echo hellow3 it work $package  # test3 # echo some other test"
-    "echo hellow4 it work $package  # test4 # echo some other test"
-    "echo hellow5 it work $package  # pacman -Ql $package  # echo some other test"
-)
-
-description=(
-	""
-	""
-	""
-)
-
-action=(
-	
-)
 
 
-selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
-  --preview 'cut -d# -f2 | xargs ' \
-  --preview-window 'right:60%:wrap:noinfo' \
+
+ls ./pacP.d | cut -d'.' -f 1 | fzf \
+  --preview="grep -n preview pacP.d/exemple.conf | cut -d':' -f 1 | awk '{print $1 + 1}' | xargs -I {} sed -n '{}p' pacP.d/exemple.conf | sh"\
+  --preview-window 'right:60%:wrap:noinfo'\
   --reverse \
   --info=right \
-  --min-height=5 | cut -d# -f1)
+  --min-height=5
 
 if [ -n "$selected_command" ]; then
     eval $selected_command

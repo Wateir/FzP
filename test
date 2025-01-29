@@ -1,0 +1,1 @@
+pacman -Ql kitty | grep -E $(echo $PATH | sed 's/:/\/(.+)|/g') | cut -d ' ' -f 2-
