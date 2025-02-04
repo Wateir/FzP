@@ -20,7 +20,7 @@ fi
 
 
 ls ./pacP.d | cut -d'.' -f 1 | fzf \
-  --preview="grep -n preview pacP.d/exemple.conf | cut -d':' -f 1 | {read n; echo $((n+1));} | xargs -I {} sed -n '{}p' pacP.d/exemple.conf | sh"\
+  --preview="printf '%s\n' | grep -n preview $1 | cut -d'=' -f 2 | sh"\
   --preview-window 'right:60%:wrap:noinfo'\
   --reverse \
   --info=right \
