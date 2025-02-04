@@ -27,7 +27,7 @@ selected=$(ls ./pacP.d | cut -d'.' -f 1 | fzf \
   --min-height=5)
 
 if [ -n "$selected" ]; then 
-    grep -n action "pacP.d/${selected}.conf" | cut -d'=' -f 2 | sh
+    grep -n action "pacP.d/${selected}.conf" | cut -d'=' -f 2 | sed "s/\[R\]/$1/g" | sh
 fi
 
 
