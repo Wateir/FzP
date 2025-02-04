@@ -19,15 +19,15 @@ fi
 
 
 
-ls ./pacP.d | cut -d'.' -f 1 | fzf \
+selected=$(ls ./pacP.d | cut -d'.' -f 1 | fzf \
   --preview="printf '%s\n' | grep -n preview $1 | cut -d'=' -f 2 | sh"\
   --preview-window 'right:60%:wrap:noinfo'\
   --reverse \
   --info=right \
-  --min-height=5
+  --min-height=5)
 
-if [ -n "$selected_command" ]; then
-    eval $selected_command
+if [ -n "$selected" ]; then 
+    grep -n action "pacP.d/${selected}.conf" | cut -d'=' -f 2 | sh
 fi
 
 
