@@ -20,7 +20,7 @@ fi
 
 
 selected=$(ls ./pacP.d | cut -d'.' -f 1 | fzf \
-  --preview="printf '%s\n' | grep -n preview $1 | cut -d'=' -f 2 | sh"\
+  --preview="grep -n preview pacP.d/$(echo '{+}').conf | cut -d'=' -f 2 | sh"\
   --preview-window 'right:60%:wrap:noinfo'\
   --reverse \
   --info=right \
@@ -29,5 +29,3 @@ selected=$(ls ./pacP.d | cut -d'.' -f 1 | fzf \
 if [ -n "$selected" ]; then 
     grep -n action "pacP.d/${selected}.conf" | cut -d'=' -f 2 | sed "s/\[R\]/$1/g" | sh
 fi
-
-
