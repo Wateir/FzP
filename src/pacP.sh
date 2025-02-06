@@ -24,6 +24,7 @@ selected=$(ls ./pacP.d | cut -d'.' -f 1 | fzf \
   | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh"\
   --preview-window 'right:60%:wrap:noinfo'\
   --reverse \
+  --info-command="grep -n info pacP.d/$(echo '{+}').conf | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh"\
   --info=right \
   --min-height=5)
 
