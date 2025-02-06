@@ -2,7 +2,7 @@
 
 Todo
 - [x] `fzp -q`
-- [ ] `fzp -p`
+- [X] `fzp -p`
 - [ ] `fzp -r`
 - [X] `fzp -S`
 - [ ] `fzp`
