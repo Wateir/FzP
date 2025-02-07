@@ -1,12 +1,4 @@
-#!/bin/bash
-
-#
-
-if [ -z "$1" ]; then
-  echo "Missing ARG"
-  echo "fzp -p [package name]"
-  exit 123
-fi
+#!/bin/sh
 
 # 1  package information
 # 2	 remove package and depency
