@@ -20,8 +20,6 @@ selected=$(ls ./src/pacP.d | cut -d'.' -f 1 | fzf \
   --info=right \
   --min-height=5)
 
-echo "$1 Here too"
-
 if [ -n "$selected" ]; then 
     grep -n action "./src/pacP.d/${selected}.conf" | cut -d'=' -f 2 | sed "s/\[R\]/$1/g" | sh
 fi

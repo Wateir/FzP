@@ -26,10 +26,9 @@ selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
 if [ -n "$selected_command" ]; then
     command=$($selected_command | fzf --preview 'pacman -Qi {} | bat -fpl yml' \
     --preview-window 'right:70%:wrap' \
-    --layout=reverse \
-    --bind 'enter:execute(pacman -Qil {} >> /dev/null)')
+    --layout=reverse )
 fi
 
 if [ -n "$command" ]; then
-	eval $command
+	./src/pacP.sh $command
 fi
