@@ -11,15 +11,17 @@
 
 
 
-selected=$(ls ./pacP.d | cut -d'.' -f 1 | fzf \
-  --preview="grep -n preview pacP.d/$(echo '{+}').conf \
+selected=$(ls ./src/pacP.d | cut -d'.' -f 1 | fzf \
+  --preview="grep -n preview ./src/pacP.d/$(echo '{+}').conf \
   | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh"\
   --preview-window 'right:60%:wrap:noinfo'\
   --reverse \
-  --info-command="grep -n info pacP.d/$(echo '{+}').conf | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh"\
+  --info-command="grep -n info ./src/pacP.d/$(echo '{+}').conf | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh"\
   --info=right \
   --min-height=5)
 
+echo "$1 Here too"
+
 if [ -n "$selected" ]; then 
-    grep -n action "pacP.d/${selected}.conf" | cut -d'=' -f 2 | sed "s/\[R\]/$1/g" | sh
+    grep -n action "./src/pacP.d/${selected}.conf" | cut -d'=' -f 2 | sed "s/\[R\]/$1/g" | sh
 fi
