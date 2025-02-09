@@ -1,5 +1,7 @@
 # Manage youre package with fuzzy finding
 
+The project is still on early developpement, don't execpt much of it
+
 Todo
 - [x] `fzp -q`
 - [X] `fzp -p`
@@ -21,14 +23,23 @@ Todo
 Simply run `fzp` with any of the available options to manage your packages with ease using fuzzy finding.  
 
 
-`fzp list` List all package install   
-`fzp package {package name}` Show package options (e.g., check dependencies or remove)  
-`fzp remove {package name}`  Fuzzy find to remove a package  
-`fzp install [package name]` Fuzzy find and install a package from AUR and official repos. If a package name is provided, show packages matching the name or description (like pacman -Ss)   
+`./fzp list` List all package install   
+`./fzp package {package name}` Show package options (e.g., check dependencies or remove)  
+`./fzp remove {package name}`  Fuzzy find to remove a package  
+`./fzp install [package name]` Fuzzy find and install a package from AUR and official repos. If a package name is provided, show packages matching the name or description (like pacman -Ss)   
 
 ## Installation
 
-The package is not finish yet so no install methode provided, just download the repo and chmod manually the script you want to try
+If you don't have already the dependencies
+```
+sudo pacman -S fzf bat awk
+```
+
+```
+https://github.com/Wateir/FzP.git
+cd FzP
+chmod +x fzp.sh
+```
 
 #### Dependencies
 
