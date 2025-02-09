@@ -30,5 +30,5 @@ if [ -n "$selected_command" ]; then
 fi
 
 if [ -n "$command" ]; then
-	./src/pacP.sh $command
+	source ./src/pacP.sh $command
 fi

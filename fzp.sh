@@ -1,5 +1,4 @@
 #!/bin/sh
-
 arguments=("install" "remove" "package" "list")
 
 
@@ -9,11 +8,11 @@ if ! echo "${arguments[@]}" | grep -qw "$1"; then
 fi
 
 if [ "$1" = "list" ]; then
-	./src/pacQ.sh
+	source ./src/pacQ.sh
 elif [ "$1" = "package" ]; then
 	if [ -z "$2" ]; then
 		exit 2
 	else
-		./src/pacP.sh $2
+		source ./src/pacP.sh $2
 	fi
 fi
