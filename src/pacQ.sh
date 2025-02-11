@@ -13,7 +13,7 @@ commands=(
 )
 
 selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
-  --nth .. \
+  --nth ..\
   --with-nth ..2 \
   --preview 'printf "%s\n" {3..} | fold -w "$FZF_PREVIEW_COLUMNS" -s -; eval {..2} | \
 	bat -fl yml --style grid,numbers --terminal-width "$FZF_PREVIEW_COLUMNS"' \
