@@ -1,15 +1,13 @@
 # Manage youre package with fuzzy finding
 
-The project is still on early developpement, don't execpt much of it
+> [!IMPORTANT]
+>The project is still on early developpement, don't execpt much of it
 
 Todo
-- [x] `fzp -q`
-- [X] `fzp -p`
-- [ ] `fzp -r`
-- [ ] Rework all `fzp -S`
-- [ ] `fzp`
-- [ ] `Make fzp one file`
+- [ ] Add a remove function to package
+- [ ] Add a install methode to package
 - [ ] pkgbuild
+
 ## Features
 
   List installed packages  
