@@ -16,7 +16,7 @@ function help(){
 FZF_OPTIONS="--info=right --reverse --min-height=5"
 			
 if [ "$1" = "list" ]; then
-	source ./src/pacQ.sh
+	source ./src/pacQ.sh "$FZF_OPTIONS"
 elif [ "$1" = "package" ]; then
 	if [ -z "$2" ]; then
 		exit 2

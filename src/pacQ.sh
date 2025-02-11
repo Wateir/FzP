@@ -18,10 +18,9 @@ selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
   --preview 'printf "%s\n" {3..} | fold -w "$FZF_PREVIEW_COLUMNS" -s -; eval {..2} | \
 	bat -fl yml --style grid,numbers --terminal-width "$FZF_PREVIEW_COLUMNS"' \
   --preview-window 'right:60%:wrap:noinfo' \
-  --reverse \
   --info-command='printf "Packages: %d" $(eval {..2} | wc -l)' \
-  --info=right \
-  --min-height=5 | cut -d' ' -f-2)
+  $1\
+  | cut -d' ' -f-2)
 
 if [ -n "$selected_command" ]; then
     command=$($selected_command | fzf --preview 'pacman -Qi {} | bat -fpl yml' \
