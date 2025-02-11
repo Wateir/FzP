@@ -24,7 +24,7 @@ selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
 
 if [ -n "$selected_command" ]; then
     command=$($selected_command | fzf --preview 'pacman -Qi {} | bat -fpl yml' \
-    --preview-window 'right:60%:wrap' $1)
+    --preview-window 'right:60%:wrap:noinfo' $1)
 fi
 
 if [ -n "$command" ]; then
