@@ -43,8 +43,9 @@ chmod +x fzp.sh
 
 #### Dependencies
 
-`fzf`
-`bat`
-`awk`
+`fzf`  
+`bat`  
+`awk`  
+`bash`
 
 If i forgot one, please open a issue.
