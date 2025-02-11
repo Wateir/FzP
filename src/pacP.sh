@@ -10,7 +10,6 @@
 # 8  Remove just the package and reinstall it from repo ( Show option only if package are on official repo)
 
 
-
 selected=$(ls ./src/pacP.d | grep  -vF "$(printf '#')" | grep '.conf$' \
 			| cut -d'.' -f 1 | fzf \
   --preview="grep -n preview ./src/pacP.d/$(echo '{+}').conf \
