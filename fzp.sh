@@ -3,11 +3,12 @@
 FZF_OPTIONS="--info=right --reverse --min-height=5"
 arguments=("install" "remove" "package" "list")
 
+
 function help(){
 	echo "FzP a fuzzy package manager"
 	echo "	Usage : $0 [-h|s] [Argument]"
 	echo "OPTIONS"
-	echo "	-h 		this menu"
+	echo "	-h, --help 	this menu"
 	echo "	-s 		open it on a small window and not full screen"
 	echo "ARGUMENT"
 	echo "	list		Give choice between sort of package currently install"
