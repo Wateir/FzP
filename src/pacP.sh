@@ -14,11 +14,9 @@ selected=$(ls ./src/pacP.d | grep  -vF "$(printf '#')" | grep '.conf$' \
 			| cut -d'.' -f 1 | fzf \
   --preview="grep -n preview ./src/pacP.d/$(echo '{+}').conf \
   | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh"\
-  --preview-window 'right:60%:wrap:noinfo'\
-  --reverse \
   --info-command="grep -n info ./src/pacP.d/$(echo '{+}').conf | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh"\
-  --info=right \
-  --min-height=5)
+  $2)
+
 
 if [ -n "$selected" ]; then 
     grep -n action "./src/pacP.d/${selected}.conf" | cut -d'=' -f 2 | sed "s/\[R\]/$1/g" | sh
