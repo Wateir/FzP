@@ -16,6 +16,7 @@ selected=$(ls ./src/pacP.d | grep  -vF "$(printf '#')" | grep '.conf$' \
   --preview="grep -n preview ./src/pacP.d/$(echo '{+}').conf \
   | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh"\
   --info-command="grep -n info ./src/pacP.d/$(echo '{+}').conf | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh"\
+  --tac\
   $2)
 
 
