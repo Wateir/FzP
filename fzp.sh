@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 FZF_OPTIONS="--info=right --reverse --min-height=5"
 arguments=("install" "remove" "package" "list")

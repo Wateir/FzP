@@ -48,6 +48,5 @@ chmod +x fzp.sh
 `fzf`  
 `bat`  
 `awk`  
-`bash`
 
 If i forgot one, please open a issue.
