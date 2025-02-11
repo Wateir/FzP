@@ -17,17 +17,16 @@ selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
   --with-nth ..2 \
   --preview 'printf "%s\n" {3..} | fold -w "$FZF_PREVIEW_COLUMNS" -s -; eval {..2} | \
 	bat -fl yml --style grid,numbers --terminal-width "$FZF_PREVIEW_COLUMNS"' \
-  --preview-window 'right:60%:wrap:noinfo' \
   --info-command='printf "Packages: %d" $(eval {..2} | wc -l)' \
+  --preview-window 'right:60%:wrap:noinfo' \
   $1\
   | cut -d' ' -f-2)
 
 if [ -n "$selected_command" ]; then
     command=$($selected_command | fzf --preview 'pacman -Qi {} | bat -fpl yml' \
-    --preview-window 'right:70%:wrap' \
-    --layout=reverse )
+    --preview-window 'right:60%:wrap' $1)
 fi
 
 if [ -n "$command" ]; then
-	source ./src/pacP.sh $command
+	source ./src/pacP.sh $command "$1"
 fi

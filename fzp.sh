@@ -13,7 +13,7 @@ function help(){
 	echo "-s 	open it on a small window and not full screen"
 }
 
-FZF_OPTIONS="--info=right --reverse --min-height=5 "
+FZF_OPTIONS="--info=right --reverse --min-height=5"
 			
 if [ "$1" = "list" ]; then
 	source ./src/pacQ.sh "$FZF_OPTIONS"
