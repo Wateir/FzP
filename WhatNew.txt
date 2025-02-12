@@ -1,0 +1,4 @@
+error are now on the stderr
+
+fzf need to be > 0.59.O
+	for have option (--no-input)
