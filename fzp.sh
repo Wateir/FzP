@@ -61,7 +61,7 @@ if [ "$1" = "list" ]; then
 			echerr "$0 $1 : '$2' is not a $1 argument. See '$0 --help'"
 			exit 4
 		fi
-		
+
 		PACQ_OPTIONS="$2"
 		source ./src/pacQ.sh "$FZF_OPTIONS" "$PACQ_OPTIONS"
 	fi

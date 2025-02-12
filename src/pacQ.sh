@@ -1,6 +1,7 @@
 #!/bin/bash
 export SHELL='sh'
 
+arg=""
 
 commands=(
 	"pacman -Qq Shows all package install"
@@ -25,12 +26,16 @@ if [ -z "$2" ]; then
   		$1\
   		| cut -d' ' -f 2)
 else
+	if [ "$2" = "all" ]; then
+		arg=""
+	else
+		arg="$2"
+	fi	
 	selected_command="-Qq"
 fi
 
-selected_command="pacman $selected_command$2"
+selected_command="pacman $selected_command$arg"
 
-echo $selected_command
 
 if [ -n "$selected_command" ]; then
     command=$($selected_command | fzf --preview 'pacman -Qi {} | bat -fpl yml' \
