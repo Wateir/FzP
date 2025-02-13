@@ -34,15 +34,23 @@ while getopts "hsa:" opt; do
 			shift
 			;;
 		a)
+			if [ -z "$2" ]; then
+				echerr "$0 : Missing argument. See '$0 --help'"
+				exit 5
+			elif [ -n "$3" ]; then
+				echerr "$0 : Too many arguments. See '$0 --help'"
+				exit 6
+			fi
 			PACQ_OPTIONS="all"
 			shift
 			;;
 		\?)
-			echerr "$O : Invalid option. See '$0 --help'"
+			echerr "$0 : Invalid option. See '$0 --help'"
 			exit 2
 	esac
 done
 
+echo $@
 
 if ! echo "${arguments[@]}" | grep -qw "$1"; then
     echerr "$0 : '$1' is not a $O command. See '$0 --help'"
@@ -54,6 +62,9 @@ if [ "$1" = "list" ]; then
 	
 	if [ -z "$2" ]; then
 		source ./src/pacQ.sh "$FZF_OPTIONS"
+	elif [ "$PACQ_OPTIONS" = "all" ]; then
+		echo $PACQ_OPTIONS
+		source ./src/pacQ.sh "$FZF_OPTIONS" "$PACQ_OPTIONS"
 	else
 		argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
 			
