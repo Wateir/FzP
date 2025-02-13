@@ -63,14 +63,11 @@ fi
 
 			
 if [ "$1" = "list" ]; then
-	
-	if [ -z "$2" ]; then
+	if [ "$PACQ_OPTIONS" = "-a" ]; then
+		source ./src/pacQ.sh "$FZF_OPTIONS" "all"
+	elif [ -z "$2" ]; then
 		source ./src/pacQ.sh "$FZF_OPTIONS"
-	elif [ "$PACQ_OPTIONS" = "-a" ]; then
-		echo "Here"
-		source ./src/pacQ.sh "$FZF_OPTIONS" "$PACQ_OPTIONS"
 	else
-			
 		if ! echo "${argumentList[@]}" | grep -qw "$2"; then
 			echerr "$0 $1 : '$2' is not a $1 argument. See '$0 --help'"
 			exit 4
