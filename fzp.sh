@@ -1,19 +1,32 @@
 #!/bin/sh
 
 FZF_OPTIONS="--info=right --reverse --min-height=5"
-#PACQ_OPTIONS="0"
+PACQ_OPTIONS="0"
 arguments=("install" "remove" "package" "list")
+argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
+
+#echo "${argumentList[@]}"
 
 
 function help(){
 	echo "FzP a fuzzy package manager"
-	echo "	Usage : $0 [-h|s] [Argument]"
+	echo "	Manage your package with fuzzy finding"
+	echo "	Usage : $0 [-h|s|a] [Argument] {parameter}"
+	echo ""
 	echo "OPTIONS"
-	echo "	-h, --help 	this menu"
-	echo "	-s 		open it on a small window and not full screen"
+	echo "	-h, --help"
+	echo "			this menu"
+	echo "	-s"
+	echo "			open it on a small window and not full screen"
+	echo "	-a"
+	echo "			alias to '$0 list all'"
 	echo "ARGUMENT"
-	echo "	list		Give choice between sort of package currently install"
-	echo "	package		Option to manage a specified package"
+	echo "	list {parameter}"
+	echo "				Give choice between sort of package currently install"
+	echo "				Optional : give a parameter to skip the choice menu"
+	echo "					Valid parameter '${argumentList[@]}'"
+	echo "	package"
+	echo "				Option to manage a specified package"
 	
 }
 echerr() { printf "%s\n" "$*" >&2; }
@@ -23,23 +36,32 @@ if [ "$1" = "--help" ];then
 	exit 0
 fi
 
-while getopts "hsa:" opt; do
-	case "$opt" in
+while getopts "hsa" opt; do
+	case "${opt}" in
 		h)
 			help
 			exit 0
 			;;
 		s)
 			FZF_OPTIONS="$FZF_OPTIONS --height 15"
-			shift
+			shift $((OPTIND-1))
 			;;
 		a)
-			PACQ_OPTIONS="all"
-			shift
+			if [ -z "$2" ]; then
+				echerr "$0 : Missing argument. See '$0 --help'"
+				exit 5
+			elif [ -n "$3" ]; then
+				echerr "$0 : Too many arguments. See '$0 --help'"
+				exit 6
+			else
+				PACQ_OPTIONS="-a"
+				shift $((OPTIND-1))
+			fi	
 			;;
 		\?)
-			echerr "$O : Invalid option. See '$0 --help'"
+			echerr "$0 : Invalid option. See '$0 --help'"
 			exit 2
+			;;
 	esac
 done
 
@@ -48,10 +70,22 @@ if ! echo "${arguments[@]}" | grep -qw "$1"; then
     echerr "$0 : '$1' is not a $O command. See '$0 --help'"
     exit 1
 fi
-
 			
 if [ "$1" = "list" ]; then
-	source ./src/pacQ.sh "$FZF_OPTIONS"
+	if [ "$PACQ_OPTIONS" = "-a" ]; then
+		source ./src/pacQ.sh "$FZF_OPTIONS" "all"
+	elif [ -z "$2" ]; then
+		source ./src/pacQ.sh "$FZF_OPTIONS"
+	else
+		if ! echo "${argumentList[@]}" | grep -qw "$2"; then
+			echerr "$0 $1 : '$2' is not a $1 argument. See '$0 --help'"
+			exit 4
+		fi
+
+		PACQ_OPTIONS="$2"
+		source ./src/pacQ.sh "$FZF_OPTIONS" "$PACQ_OPTIONS"
+	fi
+	
 elif [ "$1" = "package" ]; then
 	if [ -z "$2" ]; then
 		echerr "$0 : Missing arguments. See '$0 --help'"
@@ -60,3 +94,4 @@ elif [ "$1" = "package" ]; then
 		source ./src/pacP.sh $2	"$FZF_OPTIONS"
 	fi
 fi
+ 
