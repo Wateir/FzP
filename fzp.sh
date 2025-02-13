@@ -10,13 +10,23 @@ argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
 
 function help(){
 	echo "FzP a fuzzy package manager"
-	echo "	Usage : $0 [-h|s] [Argument]"
+	echo "	Manage your package with fuzzy finding"
+	echo "	Usage : $0 [-h|s|a] [Argument] {parameter}"
+	echo ""
 	echo "OPTIONS"
-	echo "	-h, --help 	this menu"
-	echo "	-s 		open it on a small window and not full screen"
+	echo "	-h, --help"
+	echo "			this menu"
+	echo "	-s"
+	echo "			open it on a small window and not full screen"
+	echo "	-a"
+	echo "			alias to '$0 list all'"
 	echo "ARGUMENT"
-	echo "	list		Give choice between sort of package currently install"
-	echo "	package		Option to manage a specified package"
+	echo "	list {parameter}"
+	echo "				Give choice between sort of package currently install"
+	echo "				Optional : give a parameter to skip the choice menu"
+	echo "					Valid parameter '${argumentList[@]}'"
+	echo "	package"
+	echo "				Option to manage a specified package"
 	
 }
 echerr() { printf "%s\n" "$*" >&2; }
@@ -46,7 +56,7 @@ while getopts "hsa" opt; do
 			else
 				PACQ_OPTIONS="-a"
 				shift $((OPTIND-1))
-			fi
+			fi	
 			;;
 		\?)
 			echerr "$0 : Invalid option. See '$0 --help'"
@@ -60,7 +70,6 @@ if ! echo "${arguments[@]}" | grep -qw "$1"; then
     echerr "$0 : '$1' is not a $O command. See '$0 --help'"
     exit 1
 fi
-
 			
 if [ "$1" = "list" ]; then
 	if [ "$PACQ_OPTIONS" = "-a" ]; then
@@ -85,3 +94,4 @@ elif [ "$1" = "package" ]; then
 		source ./src/pacP.sh $2	"$FZF_OPTIONS"
 	fi
 fi
+ 

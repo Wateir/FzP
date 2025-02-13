@@ -5,3 +5,4 @@ fzf need to be > 0.59.O
 
 fzp list can take argument
 	(e.g : en dt ...)
+	option -a is a alias of fzp list all
