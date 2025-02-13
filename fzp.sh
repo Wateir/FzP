@@ -3,6 +3,9 @@
 FZF_OPTIONS="--info=right --reverse --min-height=5"
 PACQ_OPTIONS="0"
 arguments=("install" "remove" "package" "list")
+argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
+
+#echo "${argumentList[@]}"
 
 
 function help(){
@@ -23,15 +26,15 @@ if [ "$1" = "--help" ];then
 	exit 0
 fi
 
-while getopts "hsa:" opt; do
-	case "$opt" in
+while getopts "hsa" opt; do
+	case "${opt}" in
 		h)
 			help
 			exit 0
 			;;
 		s)
 			FZF_OPTIONS="$FZF_OPTIONS --height 15"
-			shift
+			shift $((OPTIND-1))
 			;;
 		a)
 			if [ -z "$2" ]; then
@@ -40,17 +43,18 @@ while getopts "hsa:" opt; do
 			elif [ -n "$3" ]; then
 				echerr "$0 : Too many arguments. See '$0 --help'"
 				exit 6
+			else
+				PACQ_OPTIONS="-a"
+				shift $((OPTIND-1))
 			fi
-			PACQ_OPTIONS="all"
-			shift
 			;;
 		\?)
 			echerr "$0 : Invalid option. See '$0 --help'"
 			exit 2
+			;;
 	esac
 done
 
-echo $@
 
 if ! echo "${arguments[@]}" | grep -qw "$1"; then
     echerr "$0 : '$1' is not a $O command. See '$0 --help'"
@@ -62,11 +66,10 @@ if [ "$1" = "list" ]; then
 	
 	if [ -z "$2" ]; then
 		source ./src/pacQ.sh "$FZF_OPTIONS"
-	elif [ "$PACQ_OPTIONS" = "all" ]; then
-		echo $PACQ_OPTIONS
+	elif [ "$PACQ_OPTIONS" = "-a" ]; then
+		echo "Here"
 		source ./src/pacQ.sh "$FZF_OPTIONS" "$PACQ_OPTIONS"
 	else
-		argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
 			
 		if ! echo "${argumentList[@]}" | grep -qw "$2"; then
 			echerr "$0 $1 : '$2' is not a $1 argument. See '$0 --help'"
