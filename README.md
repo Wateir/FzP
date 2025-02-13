@@ -28,6 +28,9 @@ Simply run `fzp` with any of the available options to manage your packages with 
 
 `./fzp -s` Don't open the fuzzy finding menu on all screen
 
+> [!NOTE]
+>The usage section can not be always up to date, check `./fzp --help` for always the latest info
+
 ## Installation
 
 If you don't have already the dependencies
