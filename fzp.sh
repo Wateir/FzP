@@ -5,7 +5,7 @@ PACQ_OPTIONS="0"
 arguments=("install" "remove" "package" "list")
 argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
 
-#echo "${argumentList[@]}"
+test2="Random"
 
 
 function help(){
@@ -13,14 +13,14 @@ function help(){
 	echo "	Manage your package with fuzzy finding"
 	echo "	Usage : $0 [-h|s|a] [Argument] {parameter}"
 	echo ""
-	echo "OPTIONS"
+	echo " OPTIONS"
 	echo "	-h, --help"
 	echo "			this menu"
 	echo "	-s"
 	echo "			open it on a small window and not full screen"
 	echo "	-a"
 	echo "			alias to '$0 list all'"
-	echo "ARGUMENT"
+	echo " ARGUMENT"
 	echo "	list {parameter}"
 	echo "				Give choice between sort of package currently install"
 	echo "				Optional : give a parameter to skip the choice menu"
@@ -31,10 +31,14 @@ function help(){
 }
 echerr() { printf "%s\n" "$*" >&2; }
 
+
 if [ "$1" = "--help" ];then
 	help
 	exit 0
 fi
+
+sflag=
+aflag=
 
 while getopts "hsa" opt; do
 	case "${opt}" in
@@ -42,28 +46,36 @@ while getopts "hsa" opt; do
 			help
 			exit 0
 			;;
-		s)
-			FZF_OPTIONS="$FZF_OPTIONS --height 15"
-			shift $((OPTIND-1))
-			;;
-		a)
-			if [ -z "$2" ]; then
-				echerr "$0 : Missing argument. See '$0 --help'"
-				exit 5
-			elif [ -n "$3" ]; then
-				echerr "$0 : Too many arguments. See '$0 --help'"
-				exit 6
-			else
-				PACQ_OPTIONS="-a"
-				shift $((OPTIND-1))
-			fi	
-			;;
+		s)	sflag=1;;
+
+		a)	
+			aflag=1;;
 		\?)
 			echerr "$0 : Invalid option. See '$0 --help'"
 			exit 2
 			;;
 	esac
 done
+
+
+if [ ! -z "$sflag" ]; then
+	FZF_OPTIONS="$FZF_OPTIONS --height 15"
+fi
+
+if [ ! -z "$aflag" ]; then
+	if [ -z "$2" ]; then
+		echerr "$0 : Missing argument. See '$0 --help'"
+		exit 5
+	elif [ -n "$3" ] && [ ! "$3" = "^-*"]; then
+		echerr "$0 : Too many arguments. See '$0 --help'"
+		exit 6
+	else
+		PACQ_OPTIONS="-a"
+	fi	
+fi
+shift $((OPTIND-1))
+
+
 
 
 if ! echo "${arguments[@]}" | grep -qw "$1"; then
