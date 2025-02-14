@@ -5,8 +5,6 @@ PACQ_OPTIONS="0"
 arguments=("install" "remove" "package" "list")
 argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
 
-test2="Random"
-
 
 function help(){
 	echo "FzP a fuzzy package manager"
@@ -19,7 +17,7 @@ function help(){
 	echo "	-s"
 	echo "			open it on a small window and not full screen"
 	echo "	-a"
-	echo "			alias to '$0 list all'"
+	echo "			alias to '$0 list all'. If use, 'list' can't take parameter"
 	echo " ARGUMENT"
 	echo "	list {parameter}"
 	echo "				Give choice between sort of package currently install"
@@ -48,8 +46,8 @@ while getopts "hsa" opt; do
 			;;
 		s)	sflag=1;;
 
-		a)	
-			aflag=1;;
+		a)	aflag=1;;
+		
 		\?)
 			echerr "$0 : Invalid option. See '$0 --help'"
 			exit 2
@@ -57,24 +55,24 @@ while getopts "hsa" opt; do
 	esac
 done
 
+shift $((OPTIND-1))
+
 
 if [ ! -z "$sflag" ]; then
 	FZF_OPTIONS="$FZF_OPTIONS --height 15"
 fi
 
 if [ ! -z "$aflag" ]; then
-	if [ -z "$2" ]; then
+	if [ -z "$1" ]; then
 		echerr "$0 : Missing argument. See '$0 --help'"
 		exit 5
-	elif [ -n "$3" ] && [ ! "$3" = "^-*"]; then
+	elif [ "$1" = "list" ] && ! [ "$#" =  "1" ]; then
 		echerr "$0 : Too many arguments. See '$0 --help'"
 		exit 6
 	else
 		PACQ_OPTIONS="-a"
 	fi	
 fi
-shift $((OPTIND-1))
-
 
 
 
