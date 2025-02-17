@@ -23,7 +23,6 @@ if [ -z "$2" ]; then
 		bat -fl yml --style grid,numbers --terminal-width "$FZF_PREVIEW_COLUMNS"' \
   		--info-command='printf "Packages: %d" $(eval {..2} | wc -l)' \
   		--preview-window 'right:60%:wrap:noinfo' \
-  		--no-input\
   		$1\
   		| cut -d' ' -f 2)
 else
