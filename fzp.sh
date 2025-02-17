@@ -2,8 +2,9 @@
 
 FZF_OPTIONS="--info=right --reverse --min-height=5"
 PACQ_OPTIONS="0"
-arguments=("install" "remove" "package" "list")
+arguments=("install" "remove" "package" "list" "clean")
 argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
+PACCACHE="1"
 
 
 function help(){
@@ -94,8 +95,7 @@ if [ "$1" = "list" ]; then
 
 		PACQ_OPTIONS="$2"
 		source ./src/pacQ.sh "$FZF_OPTIONS" "$PACQ_OPTIONS"
-	fi
-	
+	fi	
 elif [ "$1" = "package" ]; then
 	if [ -z "$2" ]; then
 		echerr "$0 : Missing arguments. See '$0 --help'"
@@ -103,5 +103,7 @@ elif [ "$1" = "package" ]; then
 	else
 		source ./src/pacP.sh $2	"$FZF_OPTIONS"
 	fi
+elif [ "$1" = "clean" ]; then
+	source ./src/pacC.sh "$PACCACHE"
 fi
  
