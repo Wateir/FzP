@@ -20,7 +20,7 @@ function help(){
 	echo "	-a"
 	echo "			alias to '$0 list all'. If use, 'list' can't take parameter"
 	echo "	-i"
-	echo "			Give a custom number of old package to keep in cache to '$0 clean'"
+	echo "			Give a custom number of old package to keep in cache to '$0 clean' {number}"
 	echo "			Exept a number in [0-9]"
 	echo " ARGUMENT"
 	echo "	list {parameter}"
