@@ -19,7 +19,7 @@ if [ -z "$2" ]; then
 	selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
   		--nth ..\
   		--with-nth ..2 \
-  		--preview 'printf "%s\n" {3..} | fold -w "$FZF_PREVIEW_COLUMNS" -s -; eval {..2} | \
+  		--preview 'printf "%s\n" {3..} | fold -w "$FZF_PREVIEW_COLUMNS" -s -; eval {..2} |
 		bat -fl yml --style grid,numbers --terminal-width "$FZF_PREVIEW_COLUMNS"' \
   		--info-command='printf "Packages: %d" $(eval {..2} | wc -l)' \
   		--preview-window 'right:60%:wrap:noinfo' \
