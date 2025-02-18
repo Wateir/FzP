@@ -10,7 +10,7 @@ PACCACHE="1"
 function help(){
 	echo "FzP a fuzzy package manager"
 	echo "	Manage your package with fuzzy finding"
-	echo "	Usage : $0 [-h|s|a|i] [Argument] {parameter}"
+	echo "	Usage : $0 [-h|s] [-a] [-i] [Argument] {parameter}"
 	echo ""
 	echo " OPTIONS"
 	echo "	-h, --help"
@@ -136,6 +136,6 @@ elif [ "$1" = "package" ]; then
 		source ./src/pacP.sh $2	"$FZF_OPTIONS"
 	fi
 elif [ "$1" = "clean" ]; then
-	source ./src/pacC.sh "$PACCACHE"
+	source ./src/pacC.sh "$FZF_OPTIONS" "$PACCACHE"
 fi
  
