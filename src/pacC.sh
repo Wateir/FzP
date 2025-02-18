@@ -2,8 +2,21 @@
 
 PACC_OPTIONS=("Yes" "No" "Custom")
 
+
 selected=$(printf "%s\n" "${PACC_OPTIONS[@]}" | fzf \
 	$1 \
+	--preview "echo \"FzP clean utility\" 
+			   echo \"	- Remove all not wanted dependecies\" 
+			   echo \"	- Keep only penultimate version of package on cache\"
+			   echo ''
+			   echo \"Command execute : \"
+			   echo \"pacman -Qdtq | sudo pacman -Rns\npacman -Qqd | sudo pacman -Rsu\nparu -Scc \npaccache \"-rk$2\"\" \
+			   | bat -fl yml --style grid,numbers --terminal-width \$FZF_PREVIEW_COLUMNS 
+			   echo ''
+			   echo 'Custom :'
+			   echo '	Custom allow you to choose only some command' 
+			   "\
+	--preview-window 'right:70%:wrap:noinfo' \
 	--no-input)
 
 if [ "$selected" = "Yes" ]; then
@@ -13,7 +26,6 @@ if [ "$selected" = "Yes" ]; then
 #pacman -Qqd | sudo pacman -Rsu 
 # Clean all pacman and Paru cache
 #paru -Scc    
-echo "-rk$2"
 # clean cache and keep only the number of $1 last version, default one is 1 
 paccache "-rk$2" 
 elif [ "$selected" = "No" ]; then
