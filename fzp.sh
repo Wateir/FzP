@@ -81,7 +81,26 @@ if [ ! -z "$aflag" ]; then
 	fi	
 fi
 
-
+if [ ! -z "$iflag" ]; then
+	if [ -z "$1" ] || [ -z "$2" ]; then
+		echerr "$0 : Missing argument. See '$0 --help'"
+		exit 8
+	elif ! [ "$1" = "clean" ]; then
+		echerr "$0 : -i can't be use with '$1'. See '$0 --help'"
+		exit 10
+	elif [ "$1" = "clean" ] && ! [ "$#" =  "2" ]; then
+		echerr "$0 : Too many arguments. See '$0 --help'"
+		exit 9
+	fi
+	
+	numb='^[0-9]+$'
+	if ! [[ "$2" =~ $numb ]]; then
+		echerr "$0 : '$2' is not a valid argument. See '$0 --help'"
+		exit 11
+	else
+		PACCACHE=$2	
+	fi	
+fi
 
 
 if ! echo "${arguments[@]}" | grep -qw "$1"; then
