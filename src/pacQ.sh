@@ -25,6 +25,11 @@ if [ -z "$2" ]; then
   		--preview-window 'right:60%:wrap:noinfo' \
   		$1\
   		| cut -d' ' -f 2)
+
+
+  	if [ -z "$selected_command" ]; then
+  	exit 0
+  	fi
 else
 	if [ "$2" = "all" ]; then
 		arg=""
