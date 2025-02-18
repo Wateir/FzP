@@ -7,38 +7,11 @@ argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
 PACCACHE="1"
 
 
-function help(){
-	echo "FzP a fuzzy package manager"
-	echo "	Manage your package with fuzzy finding"
-	echo "	Usage : $0 [-h|s] [-a] [-i] [Argument] {parameter}"
-	echo ""
-	echo " OPTIONS"
-	echo "	-h, --help"
-	echo "			this menu"
-	echo "	-s"
-	echo "			open it on a small window and not full screen"
-	echo "	-a"
-	echo "			alias to '$0 list all'. If use, 'list' can't take parameter"
-	echo "	-i"
-	echo "			Give a custom number of old package to keep in cache to '$0 clean' {number}"
-	echo "			Exept a number in [0-9]"
-	echo " ARGUMENT"
-	echo "	list {parameter}"
-	echo "			Give choice between sort of package currently install"
-	echo "			Optional : give a parameter to skip the choice menu"
-	echo "				Valid parameter '${argumentList[@]}'"
-	echo "	package"
-	echo "			Option to manage a specified package"
-	echo "	clean"
-	echo "			Remove unused depencies, and old package in cache"
-	echo "				By default keep only the penultimate version"
-	
-}
 echerr() { printf "%s\n" "$*" >&2; }
 
 
 if [ "$1" = "--help" ];then
-	help
+	source ./src/pacHelp.sh all
 	exit 0
 fi
 
@@ -49,7 +22,7 @@ iflag=
 while getopts "hsai" opt; do
 	case "${opt}" in
 		h)
-			help
+			source ./src/pacHelp.sh all
 			exit 0
 			;;
 		s)	sflag=1;;

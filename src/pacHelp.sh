@@ -34,6 +34,13 @@ function option () {
 				echo "		Give a custom number of old package to keep in cache to '$0 clean' {number}"
 				echo "		Exept a number in [0-9]"
 				;;
+			"")
+				echo "	-a"
+				echo "		alias to '$0 list all'. If use, 'list' can't take parameter"
+				echo "	-i"
+				echo "		Give a custom number of old package to keep in cache to '$0 clean' {number}"
+				echo "		Exept a number in [0-9]"
+				;;
 		esac
 
 	
@@ -46,11 +53,13 @@ function argument () {
 		echo "	list {parameter}"
 		echo "		Give choice between sort of package currently install"
 		echo "		Optional : give a parameter to skip the choice menu"
+	fi
 		echo "		Valid parameter '${argumentList[@]}'"
-	elif [ "$1" = "package" ] || [ -z "$1" ]; then
+	if [ "$1" = "package" ] || [ -z "$1" ]; then
 		echo "	package"
 		echo "		Option to manage a specified package"
-	elif [ "$1" = "clean" ] || [ -z "$1" ]; then
+	fi
+	if [ "$1" = "clean" ] || [ -z "$1" ]; then
 		echo "	clean"
 		echo "		Remove unused depencies, and old package in cache"
 		echo "		By default keep only the penultimate version"
@@ -81,6 +90,9 @@ case "$1" in
 			argument clean
 			;;
 		"all")
-			
+			title
+			description
+			option
+			argument
 			;;
 	esac
