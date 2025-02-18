@@ -69,7 +69,11 @@ shift $((OPTIND-1))
 
 
 if [ ! -z "$sflag" ]; then
-	FZF_OPTIONS="$FZF_OPTIONS --height 15"
+	if [ $(tput lines) -gt 30 ]; then
+		FZF_OPTIONS="$FZF_OPTIONS --height 15"
+	else
+		FZF_OPTIONS="$FZF_OPTIONS --height 10"
+	fi
 fi
 
 if [ ! -z "$aflag" ]; then
