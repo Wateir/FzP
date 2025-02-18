@@ -38,8 +38,9 @@ fi
 
 sflag=
 aflag=
+iflag=
 
-while getopts "hsa" opt; do
+while getopts "hsai" opt; do
 	case "${opt}" in
 		h)
 			help
@@ -48,6 +49,8 @@ while getopts "hsa" opt; do
 		s)	sflag=1;;
 
 		a)	aflag=1;;
+
+		i)	iflag=1;;
 		
 		\?)
 			echerr "$0 : Invalid option. See '$0 --help'"
@@ -67,6 +70,9 @@ if [ ! -z "$aflag" ]; then
 	if [ -z "$1" ]; then
 		echerr "$0 : Missing argument. See '$0 --help'"
 		exit 5
+	elif ! [ "$1" = "list" ]; then
+			echerr "$0 : -a can't be use with '$1'. See '$0 --help'"
+			exit 7
 	elif [ "$1" = "list" ] && ! [ "$#" =  "1" ]; then
 		echerr "$0 : Too many arguments. See '$0 --help'"
 		exit 6
@@ -74,6 +80,7 @@ if [ ! -z "$aflag" ]; then
 		PACQ_OPTIONS="-a"
 	fi	
 fi
+
 
 
 
