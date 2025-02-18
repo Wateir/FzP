@@ -71,8 +71,10 @@ shift $((OPTIND-1))
 if [ ! -z "$sflag" ]; then
 	if [ $(tput lines) -gt 30 ]; then
 		FZF_OPTIONS="$FZF_OPTIONS --height 15"
-	else
+	elif [ $(tput lines) -gt 20 ]; then
 		FZF_OPTIONS="$FZF_OPTIONS --height 10"
+	else
+		FZF_OPTIONS="$FZF_OPTIONS --height $(expr $(tput lines) / 2)"
 	fi
 fi
 
