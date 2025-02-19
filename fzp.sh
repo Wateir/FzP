@@ -17,13 +17,12 @@ fi
 sflag=
 aflag=
 iflag=
+hflag=
 
 while getopts "hsai" opt; do
 	case "${opt}" in
 		h)
-			source ./src/pacHelp.sh all
-			exit 0
-			;;
+			hflag=1;;
 		s)	sflag=1;;
 
 		a)	aflag=1;;
@@ -39,6 +38,26 @@ done
 
 shift $((OPTIND-1))
 
+if [ ! -z "$hflag" ]; then
+	if ! echo "${arguments[@]}" | grep -qw "$1"; then
+	    source ./src/pacHelp.sh all
+	    exit 0
+	fi
+	case "$1" in
+		"list")
+		 	source ./src/pacHelp.sh list
+		 	exit 0
+			;;
+		"package")
+			source ./src/pacHelp.sh package
+			exit 0
+			;;
+		"clean")
+			source ./src/pacHelp.sh clean
+			exit 0
+			;;
+	esac
+fi
 
 if [ ! -z "$sflag" ]; then
 	if [ $(tput lines) -gt 30 ]; then

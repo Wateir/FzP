@@ -69,30 +69,23 @@ function argument () {
 	
 }
 
-
+title
+description
 case "$1" in
-		"list")
-	    	title
-	    	description
-	    	option list
-	    	argument list
-			;;
-		"package")
-			title
-			description
-			option package
-			argument package
-			;;
-		"clean")
-			title
-			description
-			option clean
-			argument clean
-			;;
-		"all")
-			title
-			description
-			option
-			argument
-			;;
-	esac
+	"list")
+	    option list
+	    argument list
+		;;
+	"package")
+		option package
+		argument package
+		;;
+	"clean")
+		option clean
+		argument clean
+		;;
+	"all")
+		option
+		argument
+		;;
+esac
