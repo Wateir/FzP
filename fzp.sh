@@ -6,7 +6,6 @@ arguments=("install" "remove" "package" "list" "clean")
 argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
 PACCACHE="1"
 
-
 echerr() { printf "%s\n" "$*" >&2; }
 
 
@@ -93,28 +92,32 @@ if ! echo "${arguments[@]}" | grep -qw "$1"; then
     exit 1
 fi
 			
-if [ "$1" = "list" ]; then
-	if [ "$PACQ_OPTIONS" = "-a" ]; then
-		source ./src/pacQ.sh "$FZF_OPTIONS" "all"
-	elif [ -z "$2" ]; then
-		source ./src/pacQ.sh "$FZF_OPTIONS"
-	else
-		if ! echo "${argumentList[@]}" | grep -qw "$2"; then
-			echerr "$0 $1 : '$2' is not a $1 argument. See '$0 --help'"
-			exit 4
-		fi
 
-		PACQ_OPTIONS="$2"
-		source ./src/pacQ.sh "$FZF_OPTIONS" "$PACQ_OPTIONS"
-	fi	
-elif [ "$1" = "package" ]; then
-	if [ -z "$2" ]; then
-		echerr "$0 : Missing arguments. See '$0 --help'"
-		exit 3
-	else
-		source ./src/pacP.sh $2	"$FZF_OPTIONS"
-	fi
-elif [ "$1" = "clean" ]; then
-	source ./src/pacC.sh "$FZF_OPTIONS" "$PACCACHE"
-fi
- 
+case "$1" in
+	"list")
+	    if [ "$PACQ_OPTIONS" = "-a" ]; then
+	    	source ./src/pacQ.sh "$FZF_OPTIONS" "all"
+	    elif [ -z "$2" ]; then
+	    	source ./src/pacQ.sh "$FZF_OPTIONS"
+	    else
+	    	if ! echo "${argumentList[@]}" | grep -qw "$2"; then
+	    		echerr "$0 $1 : '$2' is not a $1 argument. See '$0 --help'"
+	    		exit 4
+	    	fi
+	    	
+	    	PACQ_OPTIONS="$2"
+	    	source ./src/pacQ.sh "$FZF_OPTIONS" "$PACQ_OPTIONS"
+	    fi	
+			;;
+	"package")
+		if [ -z "$2" ]; then
+			echerr "$0 : Missing arguments. See '$0 --help'"
+			exit 3
+		else
+			source ./src/pacP.sh $2	"$FZF_OPTIONS"
+		fi
+		;;
+	"clean")
+		source ./src/pacC.sh "$FZF_OPTIONS" "$PACCACHE"
+		;;
+esac 
