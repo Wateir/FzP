@@ -13,8 +13,7 @@ selected=$(printf "%s\n" "${PACC_OPTIONS[@]}" | fzf \
 			   echo \"pacman -Qdtq | sudo pacman -Rns\npacman -Qqd | sudo pacman -Rsu\nparu -Scc \npaccache \"-rk$2\"\" \
 			   | bat -fl yml --style grid,numbers --terminal-width \$FZF_PREVIEW_COLUMNS 
 			   echo ''
-			   echo 'Custom :'
-			   echo '	Custom allow you to choose only some command' 
+			   echo 'Custom :	Custom allow you to choose only some command'
 			   "\
 	--preview-window 'right:70%:wrap:noinfo' \
 	--no-input)
