@@ -21,5 +21,5 @@ selected=$(ls ./src/pacP.d | grep  -vF "$(printf '#')" | grep '.conf$' \
 
 
 if [ -n "$selected" ]; then 
-    grep -n action "./src/pacP.d/${selected}.conf" | cut -d'=' -f 2 | sed "s/\[R\]/$1/g" | sh
+    eval $(grep -n action "./src/pacP.d/${selected}.conf" | cut -d'=' -f 2 | sed "s/\[R\]/$1/g")
 fi
