@@ -15,10 +15,10 @@ selected=$(ls ./src/pacP.d | grep  -vF "$(printf '#')" | grep '.conf$' \
   --preview-window 'right:60%:wrap:noinfo' \
   --preview="grep -n preview ./src/pacP.d/$(echo '{+}').conf \
   | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh"\
-  --info-command="grep -n info ./src/pacP.d/$(echo '{+}').conf | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh"\
+  --bind "focus:transform-header:grep -n '^info' ./src/pacP.d/$(echo {+}).conf | cut -d'=' -f 2 | sed 's/\[R\]/$1/g' | sh" \
   --tac\
+  --no-input\
   $2)
-
 
 if [ -n "$selected" ]; then 
     eval $(grep -n action "./src/pacP.d/${selected}.conf" | cut -d'=' -f 2 | sed "s/\[R\]/$1/g")

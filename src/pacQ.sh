@@ -21,7 +21,8 @@ if [ -z "$2" ]; then
   		--with-nth ..2 \
   		--preview 'printf "%s\n" {3..} | fold -w "$FZF_PREVIEW_COLUMNS" -s -; eval {..2} |
 		bat -fl yml --style grid,numbers --terminal-width "$FZF_PREVIEW_COLUMNS"' \
-  		--info-command='printf "Packages: %d" $(eval {..2} | wc -l)' \
+  		--bind 'focus:transform-header:printf "Packages: %d" $(eval {..2} | wc -l) | head -5' \
+  		--no-input\
   		--preview-window 'right:60%:wrap:noinfo' \
   		$1\
   		| cut -d' ' -f 2)
