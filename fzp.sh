@@ -2,7 +2,6 @@
 
 FZF_OPTIONS="--info=right --reverse --min-height=5 --header-label-pos 0 --style full"
 PACQ_OPTIONS="0"
-arguments=("install" "remove" "package" "list" "clean")
 argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
 PACCACHE="1"
 
