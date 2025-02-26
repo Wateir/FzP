@@ -109,12 +109,6 @@ if [ ! -z "$iflag" ]; then
 		PACCACHE=$2	
 	fi	
 fi
-
-
-if ! echo "${arguments[@]}" | grep -qw "$1"; then
-    echerr "$0 : '$1' is not a $O command. See '$0 --help'"
-    exit 1
-fi
 			
 
 case "$1" in
@@ -144,4 +138,9 @@ case "$1" in
 	"clean")
 		source ./src/pacC.sh "$FZF_OPTIONS" "$PACCACHE"
 		;;
+	*)
+		echerr "$0 : '$1' is not a $O command. See '$0 --help'"
+		exit 1
+		;;
+		
 esac 
