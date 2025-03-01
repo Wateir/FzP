@@ -137,6 +137,9 @@ case "$1" in
 	"clean")
 		source ./src/pacC.sh "$FZF_OPTIONS" "$PACCACHE"
 		;;
+	"update")
+		source ./src/pacU.sh "$FZF_OPTIONS"
+		;;
 	*)
 		echerr "$0 : '$1' is not a $O command. See '$0 --help'"
 		exit 1
