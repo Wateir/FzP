@@ -1,4 +1,4 @@
-# Manage youre package with fuzzy finding
+# Manage your package with fuzzy finding
 
 > [!IMPORTANT]
 >The project is still on early developpement, don't execpt much of it
