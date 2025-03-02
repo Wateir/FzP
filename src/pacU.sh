@@ -9,7 +9,12 @@ selected=$(printf "%s\n" "${PACU_OPTIONS[@]}" | fzf \
 	$1 \
 	--preview "echo 'FzP update utility'
 	echo '	- Update all what need to be update'
+	echo ''
+	echo Pacman Update
 	checkupdates | bat -fl yml --style grid,numbers --terminal-width \$FZF_PREVIEW_COLUMNS
+	echo Paru Update
+	paru -Qua | bat -fl yml --style grid,numbers --terminal-width \$FZF_PREVIEW_COLUMNS
+	echo
 	"\
 	--preview-window 'right:70%:wrap:noinfo' \
 	--no-input)
@@ -20,6 +25,7 @@ if [ "$selected" = "Yes" ]; then
 	paru -Syu
 	echo ""
 	echo "Don't forget to update zinit"
+	# zsh -c zinit update --parallel 40
 	echo ""
 	echo "Done - Press enter to exit"; read
 
