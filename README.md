@@ -4,8 +4,10 @@
 >The project is still on early developpement, don't execpt much of it
 
 Todo
-- [ ] Add a remove function to package
+- [X] Add a remove function to package
 - [ ] Add a install methode to package
+- [ ] Refractor all error code
+- [ ] Make `./fzp list` faster
 - [ ] pkgbuild
 
 ## Features
