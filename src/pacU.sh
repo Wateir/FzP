@@ -1,9 +1,17 @@
 PACU_OPTIONS=("Yes" "No" "Custom")
 
-if [ $(checkupdates | wc -l) -eq 0 ]; then
-	echo "Nothing need update"
-	exit 0
+( paru -Qua > /dev/null 
+paru_exit_code=$? 
+checkupdates > /dev/null 
+checkupdates_exit_code=$?
+
+# If both commands return 1 (no updates or error), interrupt the program
+if [[ $paru_exit_code -ne 0 && $checkupdates_exit_code -ne 0 ]]; then
+    kill $(pgrep -n fzf)
+    echo "No updates available, exiting the program."
+    exit 1
 fi
+ ) &
 
 selected=$(printf "%s\n" "${PACU_OPTIONS[@]}" | fzf \
 	$1 \
