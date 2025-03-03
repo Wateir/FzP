@@ -9,7 +9,7 @@ checkupdates_exit_code=$?
 if [[ $paru_exit_code -ne 0 && $checkupdates_exit_code -ne 0 ]]; then
     kill $(pgrep -n fzf)
     echo "No updates available, exiting the program."
-    exit 1
+    exit 15
 fi
  ) &
 
