@@ -60,8 +60,8 @@ If i forgot one, please open a issue.
 
 #### Error gestion
 
-```$? = 1001 : Invalid option```
-```$? = 1101 : Invalid argument```
-```$? = 1003 : Missing one argument```
-```$? = 1004 : Too many argument```
-```$? = 1102 : Invalid arguments on this context```
+```$? = 1001 : Invalid option```  
+```$? = 1101 : Invalid argument```   
+```$? = 1003 : Missing one argument```  
+```$? = 1004 : Too many argument```  
+```$? = 1102 : Invalid arguments on this context```  
