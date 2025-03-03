@@ -54,3 +54,14 @@ chmod +x fzp.sh
 
 If i forgot one, please open a issue.
 * The tool assume you have a propre Arch Linux installation (so with `base`)*
+
+
+### Use on script
+
+#### Error gestion
+
+```$? = 1001 : Invalid option```
+```$? = 1101 : Invalid argument```
+```$? = 1003 : Missing one argument```
+```$? = 1004 : Too many argument```
+```$? = 1102 : Invalid arguments on this context```
