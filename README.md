@@ -8,6 +8,7 @@ Todo
 - [ ] Add a install methode to package
 - [ ] Refractor all error code
 - [ ] Make `./fzp list` faster
+- [ ] Comment the code
 - [ ] pkgbuild
 
 ## Features
