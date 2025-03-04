@@ -19,21 +19,6 @@ Todo
   Check package dependencies  
   Display files installed by packages  
 
-## Usage
-
-Simply run `fzp` with any of the available options to manage your packages with ease using fuzzy finding.  
-
-
-`./fzp list` List all package install   
-`./fzp package {package name}` Show package options (e.g., check dependencies or remove)  
-`./fzp remove {package name}`  Fuzzy find to remove a package  
-`./fzp install {package name}` Fuzzy find and install a package from AUR and official repos. If a package name is provided, show packages matching the name or description (like pacman -Ss)   
-
-`./fzp -s` Don't open the fuzzy finding menu on all screen
-
-> [!NOTE]
->The usage section can not be always up to date, check `./fzp --help` for always the latest info
-
 ## Installation
 
 If you don't have already the dependencies
@@ -55,3 +40,18 @@ chmod +x fzp.sh
 
 If i forgot one, please open a issue.
 * The tool assume you have a propre Arch Linux installation (so with `base`)*
+
+## Usage
+
+Simply run `fzp` with any of the available options to manage your packages with ease using fuzzy finding.  
+
+
+`./fzp list` List all package install   
+`./fzp package {package name}` Show package options (e.g., check dependencies or remove)  
+`./fzp remove {package name}`  Fuzzy find to remove a package  
+`./fzp install {package name}` Fuzzy find and install a package from AUR and official repos. If a package name is provided, show packages matching the name or description (like pacman -Ss)   
+
+`./fzp -s` Don't open the fuzzy finding menu on all screen
+
+> [!NOTE]
+>The usage section can not be always up to date, check `./fzp --help` for always the latest info
