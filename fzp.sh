@@ -11,13 +11,22 @@
 #
 #  Program under MIT licence, see LICENSE or https://opensource.org/license/mit
 
-
+# Global Variable
 
 FZF_OPTIONS="--info=right --reverse --min-height=5 --header-label-pos 0 --style full"
 PACQ_OPTIONS="0"
 argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
 PACCACHE="1"
 
+
+sflag=
+aflag=
+iflag=
+hflag=
+
+
+
+# Function
 echerr() { printf "%s\n" "$*" >&2; }
 
 
@@ -25,11 +34,6 @@ if [ "$1" = "--help" ];then
 	source ./src/pacHelp.sh all
 	exit 0
 fi
-
-sflag=
-aflag=
-iflag=
-hflag=
 
 while getopts "hsai" opt; do
 	case "${opt}" in
@@ -51,7 +55,6 @@ done
 
 shift $((OPTIND-1))
 
-echo $hflag
 
 if [ ! -z "$hflag" ]; then
 	case "$1" in
