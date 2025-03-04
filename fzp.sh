@@ -1,5 +1,18 @@
 #!/bin/sh
 
+
+#	 _____    ____      
+#	|  ___|__|  _ \ 
+#	| |_ |_  / |_) |
+#	|  _| / /|  __/ 
+#	|_|  /___|_| Manage your package with fuzzy finding
+#
+#	All the script are distribued by Wateir at https://github.com/Wateir/FzP
+#
+#  Program under MIT licence, see LICENSE or https://opensource.org/license/mit
+
+
+
 FZF_OPTIONS="--info=right --reverse --min-height=5 --header-label-pos 0 --style full"
 PACQ_OPTIONS="0"
 argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
