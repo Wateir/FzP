@@ -80,13 +80,16 @@ fi
 
 
 if [ ! -z "$sflag" ]; then
-	if [ $(tput lines) -gt 30 ]; then
-		FZF_OPTIONS="$FZF_OPTIONS --height 15"
-	elif [ $(tput lines) -gt 20 ]; then
-		FZF_OPTIONS="$FZF_OPTIONS --height 10"
-	else
-		FZF_OPTIONS="$FZF_OPTIONS --height $(expr $(tput lines) / 2)"
-	fi
+    lines=$(tput lines)
+
+    if [ "$lines" -gt 30 ]; then
+        FZF_OPTIONS="$FZF_OPTIONS --height 15"
+    elif [ "$lines" -gt 20 ]; then
+        FZF_OPTIONS="$FZF_OPTIONS --height 10"
+    else
+        FZF_OPTIONS="$FZF_OPTIONS --height $(($lines / 2))"
+    fi
+
 fi
 
 if [ ! -z "$aflag" ]; then
