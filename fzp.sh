@@ -38,28 +38,15 @@ done
 
 shift $((OPTIND-1))
 
-echo $hflag
-
 if [ ! -z "$hflag" ]; then
-	case "$1" in
-		"list")
-		 	source ./src/pacHelp.sh list
-		 	exit 0
-			;;
-		"package")
-			source ./src/pacHelp.sh package
-			exit 0
-			;;
-		"clean")
-			source ./src/pacHelp.sh clean
-			exit 0
-			;;
-		*)
-			
-			source ./src/pacHelp.sh all
-			exit 12
-			;;
-	esac
+	arguments=("install" "package" "list" "clean" "update")
+	if echo "${arguments[@]}" | grep -qw "$1"; then
+	    source ./src/pacHelp.sh "$1"
+	    exit 0
+	else
+		source ./src/pacHelp.sh all
+		exit 12
+	fi
 fi
 
 

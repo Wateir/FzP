@@ -15,6 +15,8 @@ function option () {
 		"clean")
 			echo "Usage : $0 [-h|s] [-i] [Argument] {parameter}"
 			;;
+		"update")
+			echo "Usage : $0 [-h|s] [Argument]"
 	esac
 	
 	echo ""
@@ -63,6 +65,10 @@ function argument () {
 		echo "	clean"
 		echo "		Remove unused depencies, and old package in cache"
 		echo "		By default keep only the penultimate version"
+	if [ "$1" = "package" ] || [ -z "$1" ]; then
+		echo "	update"
+		echo "		Update the system"
+	fi
 	else
 		echo ""
 	fi
@@ -83,6 +89,10 @@ case "$1" in
 	"clean")
 		option clean
 		argument clean
+		;;
+	"update")
+		option update
+		argument update
 		;;
 	"all")
 		option
