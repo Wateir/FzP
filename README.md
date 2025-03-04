@@ -9,7 +9,7 @@ Todo
 - [ ] Refractor all error code
 - [ ] Make `./fzp list` faster
 - [ ] Comment the code
-- [ ] Finish clean custom mode
+- [ ] Finish `./fzp clean`and `./fzp update` custom mode
 - [ ] pkgbuild
 
 ## Features
