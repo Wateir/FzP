@@ -16,8 +16,6 @@ aflag=
 iflag=
 hflag=
 
-echerr() { printf "%s\n" "$*" >&2; }
-
 
 # Manage Error, format : "error [type of error] {optional additional context}"
 
@@ -53,6 +51,19 @@ error() {
 	fi
 	exit $1
 }
+
+check_flag() {
+    local condition=$1
+    local err_msg=$3
+    local exit_code=$2
+    if eval "$condition"; then
+       error "$2" "$3"
+    fi
+}
+
+
+
+
 
 while getopts "hsai" opt; do
 	case "${opt}" in
@@ -108,33 +119,20 @@ if [ ! -z "$sflag" ]; then
 fi
 
 if [ ! -z "$aflag" ]; then
-	if [ -z "$1" ]; then
-		error 4
-	elif ! [ "$1" = "list" ]; then
-			error 3 "-a can't be use with '$1'"
-	elif [ "$1" = "list" ] && ! [ "$#" =  "1" ]; then
-		error 5
-	else
-		PACQ_OPTIONS="-a"
-	fi	
+    check_flag "[ -z \"$1\" ]" 4
+    check_flag "[ \"$1\" != \"list\" ]" 3 "-a can't be used with '$1'" 
+    check_flag "[ \"$#\" -ne 1 ]" 5
+    PACQ_OPTIONS="-a"
 fi
 
 if [ ! -z "$iflag" ]; then
-	if [ -z "$1" ] || [ -z "$2" ]; then
-		error 4
-	elif ! [ "$1" = "clean" ]; then
-		error 3 "-i can't be use with '$1'"
-	elif [ "$1" = "clean" ] && ! [ "$#" =  "2" ]; then
-		echerr "$0 : Too many arguments. See '$0 --help'"
-		exit 9
-	fi
-	
-	numb='^[0-9]+$'
-	if ! [[ "$2" =~ $numb ]]; then
-		error 5
-	else
-		PACCACHE=$2	
-	fi	
+    check_flag "[ -z \"$1\" ] || [ -z \"$2\" ]" 4
+    check_flag "[ \"$1\" != \"clean\" ]" 3 "-i can't be use with '$1'"
+    check_flag "[ \"$#\" -ne 2 ]" 5
+
+    numb='^[0-9]+$'
+    check_flag "[[ ! \"$2\" =~ $numb ]]" 5
+    PACCACHE=$2
 fi
 			
 
