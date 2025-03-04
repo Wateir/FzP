@@ -5,8 +5,6 @@ PACQ_OPTIONS="0"
 argumentList=("all" "e" "et" "en" "em" "d" "dt" "dn" "dm")
 PACCACHE="1"
 
-echerr() { printf "%s\n" "$*" >&2; }
-
 
 if [ "$1" = "--help" ];then
 	source ./src/pacHelp.sh all
@@ -17,6 +15,44 @@ sflag=
 aflag=
 iflag=
 hflag=
+
+echerr() { printf "%s\n" "$*" >&2; }
+
+
+# Manage Error, format : "error [type of error] {optional additional context}"
+
+error() {
+
+	echerr() { printf "%s\n" "$*" >&2; }
+
+	message="$0 :"
+
+	case "$1" in
+		"1")
+			message="$message Invalid option."
+			;;
+		"2")
+			message="$message Invalid argument."
+			;;
+		"4")
+			message="$message Missing argument."
+			;;
+		"5")
+			message="$message Too many argument."
+			;;
+		"3")
+			message="$message Invalid arguments on this context."
+			;;
+	esac
+
+	message="$message See '$0 --help'"
+
+	echerr $message
+	if [ "$2" ]; then
+		echerr "==> $2"
+	fi
+	exit $1
+}
 
 while getopts "hsai" opt; do
 	case "${opt}" in
@@ -30,15 +66,13 @@ while getopts "hsai" opt; do
 		i)	iflag=1;;
 		
 		\?)
-			echerr "$0 : Invalid option. See '$0 --help'"
-			exit 2
+			error 1
 			;;
 	esac
 done
 
 shift $((OPTIND-1))
 
-echo $hflag
 
 if [ ! -z "$hflag" ]; then
 	case "$1" in
@@ -57,7 +91,7 @@ if [ ! -z "$hflag" ]; then
 		*)
 			
 			source ./src/pacHelp.sh all
-			exit 12
+			exit 2
 			;;
 	esac
 fi
@@ -75,14 +109,11 @@ fi
 
 if [ ! -z "$aflag" ]; then
 	if [ -z "$1" ]; then
-		echerr "$0 : Missing argument. See '$0 --help'"
-		exit 5
+		error 4
 	elif ! [ "$1" = "list" ]; then
-			echerr "$0 : -a can't be use with '$1'. See '$0 --help'"
-			exit 7
+			error 3 "-a can't be use with '$1'"
 	elif [ "$1" = "list" ] && ! [ "$#" =  "1" ]; then
-		echerr "$0 : Too many arguments. See '$0 --help'"
-		exit 6
+		error 5
 	else
 		PACQ_OPTIONS="-a"
 	fi	
@@ -90,11 +121,9 @@ fi
 
 if [ ! -z "$iflag" ]; then
 	if [ -z "$1" ] || [ -z "$2" ]; then
-		echerr "$0 : Missing argument. See '$0 --help'"
-		exit 8
+		error 4
 	elif ! [ "$1" = "clean" ]; then
-		echerr "$0 : -i can't be use with '$1'. See '$0 --help'"
-		exit 10
+		error 3 "-i can't be use with '$1'"
 	elif [ "$1" = "clean" ] && ! [ "$#" =  "2" ]; then
 		echerr "$0 : Too many arguments. See '$0 --help'"
 		exit 9
@@ -102,8 +131,7 @@ if [ ! -z "$iflag" ]; then
 	
 	numb='^[0-9]+$'
 	if ! [[ "$2" =~ $numb ]]; then
-		echerr "$0 : '$2' is not a valid argument. See '$0 --help'"
-		exit 11
+		error 5
 	else
 		PACCACHE=$2	
 	fi	
@@ -118,8 +146,7 @@ case "$1" in
 	    	source ./src/pacQ.sh "$FZF_OPTIONS"
 	    else
 	    	if ! echo "${argumentList[@]}" | grep -qw "$2"; then
-	    		echerr "$0 $1 : '$2' is not a $1 argument. See '$0 --help'"
-	    		exit 4
+	    		error 3 "'$2' is not a $1 argument."
 	    	fi
 	    	
 	    	PACQ_OPTIONS="$2"
@@ -128,8 +155,7 @@ case "$1" in
 			;;
 	"package")
 		if [ -z "$2" ]; then
-			echerr "$0 : Missing arguments. See '$0 --help'"
-			exit 3
+			error 4
 		else
 			source ./src/pacP.sh $2	"$FZF_OPTIONS"
 		fi
@@ -138,8 +164,7 @@ case "$1" in
 		source ./src/pacC.sh "$FZF_OPTIONS" "$PACCACHE"
 		;;
 	*)
-		echerr "$0 : '$1' is not a $O command. See '$0 --help'"
-		exit 1
+		error 2
 		;;
 		
 esac 
