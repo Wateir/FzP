@@ -6,6 +6,10 @@
 Todo
 - [ ] Add a remove function to package
 - [ ] Add a install methode to package
+- [ ] Refractor all error code
+- [ ] Make `./fzp list` faster
+- [ ] Comment the code
+- [ ] Finish clean custom mode
 - [ ] pkgbuild
 
 ## Features
