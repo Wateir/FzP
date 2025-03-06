@@ -50,7 +50,7 @@ if [ -z "$2" ]; then
   		--with-nth ..2 \
   		--preview "printf \"%s\n\" {3..} | fold -w \"\$FZF_PREVIEW_COLUMNS\" -s -; cat $tmp_dir/{2} |
 		bat -fl yml --style grid,numbers --terminal-width \"\$FZF_PREVIEW_COLUMNS\"" \
-  		--bind 'focus:transform-header:echo "Packages: $(cat $tmp_dir/{2} | wc -l)" | head -5' \
+  		--bind "focus:transform-header:echo \"Packages: \$(cat $tmp_dir/{2} | wc -l)\"" \
   		--no-input\
   		--preview-window 'right:60%:wrap:noinfo' \
   		$1\
