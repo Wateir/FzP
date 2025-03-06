@@ -20,8 +20,6 @@ for name in "${list[@]}"; do
     touch "/tmp/fzp/${name}"
     (pacman $(echo "${name}") > "/tmp/fzp/${name}") &
 done
-
-echo "done"
 # Ordre of command slowest, to fastest benchmark by hyperfine on my machine
 # ( setting : 500 runs after un warmup of 10)
 
@@ -50,16 +48,16 @@ if [ -z "$2" ]; then
 	selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
   		--nth ..\
   		--with-nth ..2 \
-  		--preview "printf \"%s\n\" {3..} ; cat $tmp_dir/{2} |
-		bat -fl yml --style grid,numbers " \
+  		--preview "printf \"%s\n\" {3..} | fold -w \"\$FZF_PREVIEW_COLUMNS\" -s -; cat $tmp_dir/{2} |
+		bat -fl yml --style grid,numbers --terminal-width \"\$FZF_PREVIEW_COLUMNS\"" \
   		--bind 'focus:transform-header:echo "Packages: $(cat $tmp_dir/{2} | wc -l)" | head -5' \
   		--no-input\
   		--preview-window 'right:60%:wrap:noinfo' \
   		$1\
   		| cut -d' ' -f 2)
 
-# | fold -w \"$FZF_PREVIEW_COLUMNS\" -s -
-# --terminal-width \"$FZF_PREVIEW_COLUMNS\"
+# 
+# 
   	if [ -z "$selected_command" ]; then
   	exit 0
   	fi
