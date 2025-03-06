@@ -2,7 +2,36 @@
 export SHELL='sh'
 
 arg=""
+tmp_dir="/tmp/fzp"
+mkdir -p "$tmp_dir"
 
+list=(
+  "-Qqen"
+  "-Qqdm"
+  "-Qqdn"
+  "-Qqem"
+  "-Qqdt"
+  "-Qqet"
+  "-Qqd"
+  "-Qqe"
+  "-Qq"
+)
+for name in "${list[@]}"; do
+    touch "/tmp/fzp/${name}"
+    (pacman $(echo "${name}") > "/tmp/fzp/${name}") &
+done
+# Ordre of command slowest, to fastest benchmark by hyperfine on my machine
+# ( setting : 500 runs after un warmup of 10)
+
+# pacman qqen
+# pacman qqdm
+# pacman qqdn
+# pacman qqem
+# pacman qqdt
+# pacman qqet
+# pacman qqd
+# pacman qqe
+# pacman qq
 commands=(
 	"pacman -Qq Shows all package install"
     "pacman -Qqe Shows explicitly installed packages"
@@ -19,15 +48,16 @@ if [ -z "$2" ]; then
 	selected_command=$(printf "%s\n" "${commands[@]}" | fzf \
   		--nth ..\
   		--with-nth ..2 \
-  		--preview 'printf "%s\n" {3..} | fold -w "$FZF_PREVIEW_COLUMNS" -s -; eval {..2} |
-		bat -fl yml --style grid,numbers --terminal-width "$FZF_PREVIEW_COLUMNS"' \
-  		--bind 'focus:transform-header:printf "Packages: %d" $(eval {..2} | wc -l) | head -5' \
+  		--preview "printf \"%s\n\" {3..} | fold -w \"\$FZF_PREVIEW_COLUMNS\" -s -; cat $tmp_dir/{2} |
+		bat -fl yml --style grid,numbers --terminal-width \"\$FZF_PREVIEW_COLUMNS\"" \
+  		--bind "focus:transform-header:echo \"Packages: \$(cat $tmp_dir/{2} | wc -l)\"" \
   		--no-input\
   		--preview-window 'right:60%:wrap:noinfo' \
   		$1\
   		| cut -d' ' -f 2)
 
-
+# 
+# 
   	if [ -z "$selected_command" ]; then
   	exit 0
   	fi
@@ -51,3 +81,5 @@ fi
 if [ -n "$command" ]; then
 	source ./src/pacP.sh $command "$1"
 fi
+
+rm -rf "$tmp_dir"
