@@ -5,7 +5,7 @@ PACC_OPTIONS=("Yes" "No" "Custom")
 
 selected=$(printf "%s\n" "${PACC_OPTIONS[@]}" | fzf \
 	$1 \
-	--preview "echo \"FzP clean utility\" 
+	--preview " 
 			   echo \"	- Remove all not wanted dependecies\" 
 			   echo \"	- Keep only penultimate version of package on cache\"
 			   echo ''
@@ -16,6 +16,7 @@ selected=$(printf "%s\n" "${PACC_OPTIONS[@]}" | fzf \
 			   echo 'Custom :	Custom allow you to choose only some command'
 			   "\
 	--preview-window 'right:70%:wrap:noinfo' \
+	--bind 'focus:transform-header:echo "FzP clean utility"' \
 	--no-input)
 
 if [ "$selected" = "Yes" ]; then

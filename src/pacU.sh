@@ -15,7 +15,7 @@ fi
 
 selected=$(printf "%s\n" "${PACU_OPTIONS[@]}" | fzf \
 	$1 \
-	--preview "echo 'FzP update utility'
+	--preview "
 	echo '	- Update all what need to be update'
 	echo ''
 	echo Pacman Update
@@ -25,6 +25,7 @@ selected=$(printf "%s\n" "${PACU_OPTIONS[@]}" | fzf \
 	echo
 	"\
 	--preview-window 'right:70%:wrap:noinfo' \
+	--bind 'focus:transform-header:echo "FzP update utility"' \
 	--no-input)
 
 if [ "$selected" = "Yes" ]; then
