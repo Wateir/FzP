@@ -1,5 +1,7 @@
 #/bin/sh
 
+# Setup Variable
+
 PACC_OPTIONS=("Yes" "No" "Custom")
 PARU_DIFF=
 
@@ -17,6 +19,10 @@ if [ $PARU_DIFF ]; then
 else
 	sizediff=
 fi
+numberPackage=$(pacman -Qq | wc -l)
+
+
+# FzF UI setup
 
 selected=$(printf "%s\n" "${PACC_OPTIONS[@]}" | fzf \
 	$1 \
@@ -33,6 +39,9 @@ selected=$(printf "%s\n" "${PACC_OPTIONS[@]}" | fzf \
 	--preview-window 'right:70%:wrap:noinfo' \
 	--bind 'focus:transform-header:echo "FzP clean utility"' \
 	--no-input)
+
+
+# Manage fzf output
 
 if [ "$selected" = "Yes" ]; then
 # Remove no longeur dependecies
@@ -52,10 +61,13 @@ else
 fi
 
 
+# Calcul of variable and the change on system size and number of package
+
+
 sizepkg=$(expr $sizepkg - $(du -s /var/cache/pacman/pkg | cut -f 1))
 sizepacman=$(expr $sizepacman - $(du -s /var/lib/pacman | cut -f 1))
 sizeclone=$(expr $sizeclone - $(du -s $HOME/.cache/paru/clone | cut -f 1))
-if [ -z $PARU_DIFF ]; then
+if [ $PARU_DIFF ]; then
 	sizediff=$(expr $sizediff - $(du -s $HOME/.cache/paru/diff | cut -f 1))
 elif [ -d $HOME/.cache/paru/diff ]; then
 	sizediff=$(du -s $HOME/.cache/paru/diff | cut -f 1)
@@ -63,5 +75,14 @@ else
 	sizediff=0
 fi
 size=$(expr $sizepkg + $sizepacman + $sizeclone + $sizediff)
+numberPackageafter=$(pacman -Qq | wc -l)
+
+packageRemove=$(expr $numberPackage - $numberPackageafter)
+
+
+# Display of resume
+
+echo "" 
 
 echo "Cache remove : $size"
+echo "Number of package remove : $packageRemove"
