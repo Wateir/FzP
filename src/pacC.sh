@@ -32,7 +32,7 @@ elif [ "$selected" = "No" ]; then
 elif [ "$selected" = "Custom" ]; then
 	echo "Custom"
 else
-	exit 12
+	exit 0
 fi
 
 # /var/cache/pacman/pkg/

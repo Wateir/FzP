@@ -41,6 +41,8 @@ error() {
 		"3")
 			message="$message Invalid arguments on this context."
 			;;
+		"6")
+			message="$message Unexpect user behavior"
 	esac
 
 	message="$message See '$0 --help'"
