@@ -16,7 +16,7 @@ fi
 selected=$(printf "%s\n" "${PACU_OPTIONS[@]}" | fzf \
 	$1 \
 	--preview "
-	echo '	- Update all what need to be update'
+	echo '	- Update all what needed'
 	echo ''
 	echo Pacman Update
 	checkupdates | bat -fl yml --style grid,numbers --terminal-width \$FZF_PREVIEW_COLUMNS

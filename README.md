@@ -52,7 +52,8 @@ chmod +x fzp.sh
 
 `fzf`  
 `bat`  
-`awk`  
+`awk`
+`expr`
 
 If i forgot one, please open a issue.
 * The tool assume you have a propre Arch Linux installation (so with `base`)*
