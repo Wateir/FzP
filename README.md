@@ -42,7 +42,6 @@ chmod +x fzp.sh
 If i forgot one, please open a issue.
 * The tool assume you have a propre Arch Linux installation (so with `base`)*
 
-<<<<<<< HEAD
 ## Usage
 
 Simply run `fzp` with any of the available options to manage your packages with ease using fuzzy finding.  
@@ -57,7 +56,6 @@ Simply run `fzp` with any of the available options to manage your packages with 
 
 > [!NOTE]
 >The usage section can not be always up to date, check `./fzp --help` for always the latest info
-=======
 
 ### Use on script
 
@@ -69,5 +67,3 @@ Simply run `fzp` with any of the available options to manage your packages with 
 ```$? = 5 : Too many argument```  
 ```$? = 3 : Invalid arguments on this context``` 
 ```$? = 6 : Unexpected user behavior```  
-
->>>>>>> BetterError
