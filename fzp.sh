@@ -18,6 +18,20 @@ aflag=
 iflag=
 hflag=
 
+lastUpdate() {
+	now=$(date +%s)
+	event_time=$(date -d $(\
+	grep "$1" /var/log/pacman.log | tail -n1  | cut -d ' ' -f 1 | sed 's/\[\([^]]*\)\]/\1/') +%s)
+	
+	diff=$(expr "$now" - "$event_time")
+	days=$((diff / 86400))
+	hours=$(( (diff % 86400) / 3600))
+	minutes=$(( (diff % 3600) / 60))
+	
+	echo "$days days, $hours hours and $minutes minutes"
+}
+
+
 while getopts "hsai" opt; do
 	case "${opt}" in
 		h)
@@ -52,9 +66,9 @@ fi
 
 if [ ! -z "$sflag" ]; then
 	if [ $(tput lines) -gt 30 ]; then
-		FZF_OPTIONS="$FZF_OPTIONS --height 15"
+		FZF_OPTIONS="$FZF_OPTIONS --height 20"
 	elif [ $(tput lines) -gt 20 ]; then
-		FZF_OPTIONS="$FZF_OPTIONS --height 10"
+		FZF_OPTIONS="$FZF_OPTIONS --height 15"
 	else
 		FZF_OPTIONS="$FZF_OPTIONS --height $(expr $(tput lines) / 2)"
 	fi

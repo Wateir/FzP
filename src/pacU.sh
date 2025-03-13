@@ -1,3 +1,5 @@
+#/bin/sh
+
 PACU_OPTIONS=("Yes" "No" "Custom")
 
 ( paru -Qua > /dev/null 
@@ -13,10 +15,16 @@ if [[ $paru_exit_code -ne 0 && $checkupdates_exit_code -ne 0 ]]; then
 fi
  ) &
 
+if [ ! -d /tmp/fzp ]; then
+	mkdir /tmp/fzp
+fi
+
 selected=$(printf "%s\n" "${PACU_OPTIONS[@]}" | fzf \
 	$1 \
 	--preview "
 	echo '	- Update all what needed'
+	echo ''
+	echo 'Last Systeme Update : ' $(lastUpdate '\-Syu')
 	echo ''
 	echo Pacman Update
 	checkupdates | bat -fl yml --style grid,numbers --terminal-width \$FZF_PREVIEW_COLUMNS
@@ -27,6 +35,9 @@ selected=$(printf "%s\n" "${PACU_OPTIONS[@]}" | fzf \
 	--preview-window 'right:70%:wrap:noinfo' \
 	--bind 'focus:transform-header:echo "FzP update utility"' \
 	--no-input)
+
+
+rm -fr /tmp/fzp
 
 if [ "$selected" = "Yes" ]; then
 
