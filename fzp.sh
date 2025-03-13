@@ -67,7 +67,7 @@ error() {
 	exit $1
 }
 
-check_flag() {
+checkFlag() {
     local condition=$1
     local err_msg=$3
     local exit_code=$2
@@ -75,6 +75,7 @@ check_flag() {
        error "$2" "$3"
     fi
 }
+
 
 
 while getopts "hsai" opt; do
@@ -134,19 +135,19 @@ if [ ! -z "$sflag" ]; then
 fi
 
 if [ ! -z "$aflag" ]; then
-    check_flag "[ -z \"$1\" ]" 4
-    check_flag "[ \"$1\" != \"list\" ]" 3 "-a can't be used with '$1'" 
-    check_flag "[ \"$#\" -ne 1 ]" 5
+    checkFlag "[ -z \"$1\" ]" 4
+    checkFlag "[ \"$1\" != \"list\" ]" 3 "-a can't be used with '$1'" 
+    checkFlag "[ \"$#\" -ne 1 ]" 5
     PACQ_OPTIONS="-a"
 fi
 
 if [ ! -z "$iflag" ]; then
-    check_flag "[ -z \"$1\" ] || [ -z \"$2\" ]" 4
-    check_flag "[ \"$1\" != \"clean\" ]" 3 "-i can't be use with '$1'"
-    check_flag "[ \"$#\" -ne 2 ]" 5
+    checkFlag "[ -z \"$1\" ] || [ -z \"$2\" ]" 4
+    checkFlag "[ \"$1\" != \"clean\" ]" 3 "-i can't be use with '$1'"
+    checkFlag "[ \"$#\" -ne 2 ]" 5
 
     numb='^[0-9]+$'
-    check_flag "[[ ! \"$2\" =~ $numb ]]" 5
+    checkFlag "[[ ! \"$2\" =~ $numb ]]" 5
     PACCACHE=$2
 fi
 			

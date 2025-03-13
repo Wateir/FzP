@@ -65,5 +65,5 @@ Simply run `fzp` with any of the available options to manage your packages with 
 ```$? = 2 : Invalid argument```   
 ```$? = 4 : Missing argument```  
 ```$? = 5 : Too many argument```  
-```$? = 3 : Invalid arguments on this context``` 
+```$? = 3 : Invalid arguments on this context```  
 ```$? = 6 : Unexpected user behavior```  
