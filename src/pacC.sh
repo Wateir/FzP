@@ -45,9 +45,9 @@ selected=$(printf "%s\n" "${PACC_OPTIONS[@]}" | fzf \
 
 if [ "$selected" = "Yes" ]; then
 # Remove no longeur dependecies
-#pacman -Qdtq | sudo pacman -Rns
+pacman -Qdtq | sudo pacman -Rns
 # Remove unwanted dependecies and all they no more used dependencie too
-#pacman -Qqd | sudo pacman -Rsu 
+pacman -Qqd | sudo pacman -Rsu 
 # Clean all pacman and Paru cache
 paru -Scc --noconfirm
 # clean cache and keep only the number of $1 last version, default one is 1 
