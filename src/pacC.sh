@@ -2,7 +2,7 @@
 
 # Setup Variable
 
-PACC_OPTIONS=("Yes" "No" "Custom")
+PACC_OPTIONS=("Yes" "No")
 PARU_DIFF=
 
 if [ ! -d $HOME/.cache/paru/diff ]; then
@@ -33,8 +33,6 @@ selected=$(printf "%s\n" "${PACC_OPTIONS[@]}" | fzf \
 			   echo \"Command execute : \"
 			   echo \"pacman -Qdtq | sudo pacman -Rns\npacman -Qqd | sudo pacman -Rsu\nparu -Scc \npaccache \"-rk$2\"\" \
 			   | bat -fl yml --style grid,numbers --terminal-width \$FZF_PREVIEW_COLUMNS 
-			   echo ''
-			   echo 'Custom :	Custom allow you to choose only some command'
 			   "\
 	--preview-window 'right:70%:wrap:noinfo' \
 	--bind 'focus:transform-header:echo "FzP clean utility"' \

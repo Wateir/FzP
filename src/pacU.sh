@@ -1,6 +1,6 @@
 #/bin/sh
 
-PACU_OPTIONS=("Yes" "No" "Custom")
+PACU_OPTIONS=("Yes" "No")
 
 if [ ! -d /tmp/fzp ]; then
 	mkdir /tmp/fzp
@@ -60,8 +60,11 @@ elif [ "$selected" = "No" ]; then
 	rm -fr /tmp/fzp
 	echo "End by user"
 	exit 0
+<<<<<<< Updated upstream
 elif [ "$selected" = "Custom" ]; then
 	echo "Custom (Not Implemented)"
+=======
+>>>>>>> Stashed changes
 else
 	rm -fr /tmp/fzp
 	exit 12
