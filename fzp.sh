@@ -78,6 +78,20 @@ checkFlag() {
 
 
 
+lastUpdate() {
+	now=$(date +%s)
+	event_time=$(date -d $(\
+	grep "$1" /var/log/pacman.log | tail -n1  | cut -d ' ' -f 1 | sed 's/\[\([^]]*\)\]/\1/') +%s)
+	
+	diff=$(expr "$now" - "$event_time")
+	days=$((diff / 86400))
+	hours=$(( (diff % 86400) / 3600))
+	minutes=$(( (diff % 3600) / 60))
+	
+	echo "$days days, $hours hours and $minutes minutes"
+}
+
+
 while getopts "hsai" opt; do
 	case "${opt}" in
 		h)
@@ -99,39 +113,25 @@ shift $((OPTIND-1))
 
 
 if [ ! -z "$hflag" ]; then
-	case "$1" in
-		"list")
-		 	source ./src/pacHelp.sh list
-		 	exit 0
-			;;
-		"package")
-			source ./src/pacHelp.sh package
-			exit 0
-			;;
-		"clean")
-			source ./src/pacHelp.sh clean
-			exit 0
-			;;
-		*)
-			
-			source ./src/pacHelp.sh all
-			exit 2
-			;;
-	esac
+	arguments=("install" "package" "list" "clean" "update")
+	if echo "${arguments[@]}" | grep -qw "$1"; then
+	    source ./src/pacHelp.sh "$1"
+	    exit 0
+	else
+		source ./src/pacHelp.sh all
+		exit 12
+	fi
 fi
 
 
 if [ ! -z "$sflag" ]; then
-    lines=$(tput lines)
-
-    if [ "$lines" -gt 30 ]; then
-        FZF_OPTIONS="$FZF_OPTIONS --height 15"
-    elif [ "$lines" -gt 20 ]; then
-        FZF_OPTIONS="$FZF_OPTIONS --height 10"
-    else
-        FZF_OPTIONS="$FZF_OPTIONS --height $(($lines / 2))"
-    fi
-
+	if [ $(tput lines) -gt 30 ]; then
+		FZF_OPTIONS="$FZF_OPTIONS --height 20"
+	elif [ $(tput lines) -gt 20 ]; then
+		FZF_OPTIONS="$FZF_OPTIONS --height 15"
+	else
+		FZF_OPTIONS="$FZF_OPTIONS --height $(expr $(tput lines) / 2)"
+	fi
 fi
 
 if [ ! -z "$aflag" ]; then
@@ -176,6 +176,9 @@ case "$1" in
 		;;
 	"clean")
 		source ./src/pacC.sh "$FZF_OPTIONS" "$PACCACHE"
+		;;
+	"update")
+		source ./src/pacU.sh "$FZF_OPTIONS"
 		;;
 	*)
 		error 2
