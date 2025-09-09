@@ -4,9 +4,12 @@
 #include <notcurses/notcurses.h>
 
 int main() {
+    printf("hello world\n");
+
     const struct notcurses_options opts = {
         .flags = 0,
     };
+
 
     struct notcurses* nc = notcurses_init(&opts, NULL);
     if (!nc) {
@@ -16,14 +19,13 @@ int main() {
     struct ncplane* stdn = notcurses_stdplane(nc);
     ncplane_erase(stdn);
     ncplane_move_yx(stdn, 5, 5);
+    ncplane_perimeter_rounded(stdn, 0, 0, 0);
     ncplane_putstr(stdn, "Hello World !");
 
-    ncplane_perimeter_rounded(stdn, 0, 0, 0);
     notcurses_render(nc);
 
     struct ncinput input;
 
-    // Boucle jusqu'à ce que 'q' soit pressé
     while (1) {
         const uint32_t id = notcurses_get_blocking(nc, &input);
         if (id == 'q' || id == 'Q') {
