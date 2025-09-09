@@ -37,7 +37,7 @@ Run it with
 `notcurses`  
 `pacman` on the future for the lib ALPM   
 
-If i forgot one, please open a issue.
+If I forgot one, please open an issue.
 * The tool assume you have a propre Arch Linux installation (so with `base`)*
 
 ## Usage
