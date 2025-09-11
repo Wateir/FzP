@@ -4,7 +4,6 @@
 #include <notcurses/notcurses.h>
 
 int main() {
-    printf("hello world\n");
 
     const struct notcurses_options opts = {
         .flags = 0,
@@ -18,7 +17,8 @@ int main() {
 
     struct ncplane* stdn = notcurses_stdplane(nc);
     ncplane_erase(stdn);
-    ncplane_move_yx(stdn, 5, 5);
+    ncplane_move_yx(stdn, 20, 30);
+    ncplane_putstr(stdn, "Hello World !");
     ncplane_perimeter_rounded(stdn, 0, 0, 0);
     ncplane_putstr(stdn, "Hello World !");
 
