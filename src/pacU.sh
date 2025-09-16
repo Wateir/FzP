@@ -8,7 +8,7 @@ fi
 
 ( paru -Qua > /tmp/fzp/parQua 
 paru_exit_code=$? 
-checkupdates > /tmp/fzp/pacQua
+pacman -Qu > /tmp/fzp/pacQua
 checkupdates_exit_code=$?
 
 # If both commands return 1 (no updates or error), interrupt the program
@@ -60,11 +60,6 @@ elif [ "$selected" = "No" ]; then
 	rm -fr /tmp/fzp
 	echo "End by user"
 	exit 0
-<<<<<<< Updated upstream
-elif [ "$selected" = "Custom" ]; then
-	echo "Custom (Not Implemented)"
-=======
->>>>>>> Stashed changes
 else
 	rm -fr /tmp/fzp
 	exit 12
